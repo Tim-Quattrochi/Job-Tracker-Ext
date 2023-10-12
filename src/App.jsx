@@ -10,8 +10,11 @@ function App() {
   };
 
   return (
-    <main className="bg-blue-500">
-      <h1> My Job Tracker </h1>
+    <main className="bg-polo-blue-900 w-52 h-full">
+      <h1 className="text-polo-blue-200 font-bold text-center p-3">
+        {" "}
+        My Job Tracker{" "}
+      </h1>
       <JobForm addJob={addJob} />
       <JobList jobs={jobs} />
     </main>
