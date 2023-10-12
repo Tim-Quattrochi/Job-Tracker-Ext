@@ -45,3 +45,50 @@ JobDetails.findById = (jobDetailsId, result) => {
     }
   );
 };
+
+JobDetails.updateById = (id, jobDetails, result) => {
+  sql.query(
+    "UPDATE jobdetails SET title = ?, companyName = ?, dateApplied = ?, status = ?, additionalDetails = ? WHERE id = ?",
+    [
+      jobDetails.title,
+      jobDetails.companyName,
+      jobDetails.dateApplied,
+      jobDetails.status,
+      jobDetails.additionalDetails,
+      id,
+    ],
+    (err, res) => {
+      if (err) {
+        console.log("error: ", err);
+        result(null, err);
+        return;
+      }
+      if (res.affectedRows === 0) {
+        // did not find details with the provided id.
+        result({ kind: "not_found" }, null);
+        return;
+      }
+      console.log("updated jobDetails: ", { id: id, ...jobDetails });
+      result(null, { id: id, ...jobDetails });
+    }
+  );
+};
+
+JobDetails.remove = (id, result) => {
+  sql.query("DELETE FROM jobdetails WHERE id = ?", id, (err, res) => {
+    if (err) {
+      console.log("error: ", err);
+      result(null, err);
+      return;
+    }
+    if (res.affectedRows === 0) {
+      // did not find details with the provided id.
+      result({ kind: "not_found" }, null);
+      return;
+    }
+    console.log("deleted jobDetails with id: ", id);
+    result(null, res);
+  });
+};
+
+module.exports = JobDetails;
