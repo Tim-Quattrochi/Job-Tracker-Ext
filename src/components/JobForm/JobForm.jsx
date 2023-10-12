@@ -12,7 +12,7 @@ const categories = [
 const initialJobState = {
   title: "",
   company: "",
-  dateApplied: Date.now(),
+  dateApplied: new Date().toLocaleDateString() || "",
   additional: "",
   status: "",
 };
@@ -39,6 +39,7 @@ function JobForm({ addJob }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (!jobData.title || !jobData.company || !jobData.status) return;
     addJob(jobData);
     setJobData(initialJobState);
   };
@@ -46,9 +47,25 @@ function JobForm({ addJob }) {
   return (
     <form
       onSubmit={handleSubmit}
-      className="flex flex-col p-2 m-2 gap-1"
+      className="text-primary-300 flex flex-col p-2 m-2 gap-1"
     >
-      <label htmlFor="title">Job Title: </label>
+      <label
+        htmlFor="dateApplied"
+        className="text-polo-blue-200 font-bold"
+      >
+        Date Applied:
+      </label>
+      <input
+        type="date"
+        name="dateApplied"
+        id="dateApplied"
+        className="p-2"
+        value={jobData.dateApplied}
+        onChange={handleInputChange}
+      />
+      <label htmlFor="title" className="text-polo-blue-200 font-bold">
+        Job Title:{" "}
+      </label>
       <input
         type="text"
         name="title"
@@ -59,7 +76,10 @@ function JobForm({ addJob }) {
         onChange={handleInputChange}
       />
 
-      <label htmlFor="company" className="py-2">
+      <label
+        htmlFor="company"
+        className="py-2 text-polo-blue-200 font-bold"
+      >
         Company:
       </label>
       <input
@@ -72,7 +92,10 @@ function JobForm({ addJob }) {
         onChange={handleInputChange}
       />
 
-      <label htmlFor="category" className="py-2">
+      <label
+        htmlFor="category"
+        className="py-2 text-polo-blue-200 font-bold"
+      >
         Status:
       </label>
       <select
@@ -90,16 +113,25 @@ function JobForm({ addJob }) {
         ))}
       </select>
 
-      <label htmlFor="additional" className="flex flex-col py-2">
+      <label
+        htmlFor="additional"
+        className="flex flex-col py-2 text-polo-blue-200 font-bold"
+      >
         Additional Notes:
       </label>
-      <textarea id="additional" className="mt-1">
+      <textarea
+        id="additional"
+        className="mt-1"
+        name="additional"
+        value={jobData.additional}
+        onChange={handleInputChange}
+      >
         {jobData.additional}
       </textarea>
 
       <button
         type="submit"
-        className="mt-5 border w-20 mx-auto rounded"
+        className="bg-polo-blue-500 text-polo-blue-100 mt-5 p-2 border w-20 mx-auto rounded"
       >
         Add Job
       </button>
