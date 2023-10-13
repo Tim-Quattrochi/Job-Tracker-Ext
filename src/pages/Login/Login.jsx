@@ -19,7 +19,7 @@ const Login = () => {
     e.preventDefault();
   };
   return (
-    <div className="w-full max-w-xs">
+    <div className="min-h-full h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
       <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
         <div className="mb-4">
           <Label
@@ -54,7 +54,7 @@ const Login = () => {
             onChange={handleChange}
           />
         </div>
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between gap-2">
           <button
             type="submit"
             className="bg-polo-blue-500 text-polo-blue-100 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
@@ -63,7 +63,7 @@ const Login = () => {
           </button>
           <Link
             to="/register"
-            className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800"
+            className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800 ml-2"
           >
             Need an account?{" "}
           </Link>
