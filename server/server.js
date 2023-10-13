@@ -1,3 +1,4 @@
+const dotenv = require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const jobDetailsRouter = require("./routes/jobDetails.routes");
@@ -9,7 +10,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use("/api/jobDetails", jobDetailsRouter);
+app.use("/api/details", jobDetailsRouter);
 
 app.listen(PORT, () => {
   console.log(`Server is listening on ${PORT}.`);
