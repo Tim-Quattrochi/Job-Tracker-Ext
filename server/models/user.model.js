@@ -21,8 +21,7 @@ class User {
     sql.query("INSERT INTO users SET ?", newUser, (err, res) => {
       if (err) {
         console.log("error: ", err);
-        result(err, null);
-        return;
+        return result(err, null);
       }
       result(null, {
         id: res.insertId,
