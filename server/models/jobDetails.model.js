@@ -86,10 +86,7 @@ class JobDetails {
           result({ kind: "not_found" }, null);
           return;
         }
-        console.log("updated jobDetails: ", {
-          id: id,
-          ...jobDetails,
-        });
+
         result(null, { id: id, ...jobDetails });
       }
     );
