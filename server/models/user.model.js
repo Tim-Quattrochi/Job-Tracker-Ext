@@ -1,5 +1,10 @@
 const sql = require("../config/db");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+const {
+  ACCESS_TOKEN_SECRET,
+  ACCESS_EXPIRES_IN,
+} = require("../config/constants");
 
 class User {
   constructor(userDetails) {
@@ -30,6 +35,13 @@ class User {
     } catch (error) {
       throw new Error("hashing failed", error);
     }
+  }
+
+  static createAccessToken(payload) {
+    const accessToken = jwt.sign(payload, ACCESS_TOKEN_SECRET, {
+      expiresIn: ACCESS_EXPIRES_IN,
+    });
+    return accessToken;
   }
 }
 
