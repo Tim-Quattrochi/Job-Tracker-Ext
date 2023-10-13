@@ -111,6 +111,22 @@ class JobDetails {
       }
     );
   }
+
+  static getAllByStatus(status, result) {
+    sql.query(
+      `SELECT * FROM jobdetails WHERE status = ?`,
+      [status],
+      (err, res) => {
+        if (err) {
+          console.log("error: ", err);
+          result(null, err);
+          return;
+        }
+
+        result(null, res);
+      }
+    );
+  }
 }
 
 module.exports = JobDetails;

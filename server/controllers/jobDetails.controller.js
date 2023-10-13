@@ -85,11 +85,46 @@ const updateJob = (req, res) => {
   });
 };
 
-const deleteJob = (req, res) => {};
+const deleteJob = (req, res) => {
+  const { id } = req.params;
+
+  JobDetails.remove(id, (err, data) => {
+    if (err) {
+      if (err.kind === "not_found") {
+        res
+          .status(404)
+          .json({ message: `Job details with id ${id} not found` });
+      } else {
+        res.status(500).json({
+          message: `Error deleting job details with id ${id}`,
+        });
+      }
+    } else {
+      res.status(200).json({ message: `Job deleted successfully` });
+    }
+  });
+};
+
+const findAllByStatus = (req, res) => {
+  const { status } = req.params;
+
+  JobDetails.getAllByStatus(status, (err, data) => {
+    if (err) {
+      res.status(500).json({
+        message:
+          err.message ||
+          "An error occurred while retrieving job details",
+      });
+    } else {
+      res.status(200).json(data);
+    }
+  });
+};
 
 module.exports = {
   createJobDetails,
   getOneJob,
   updateJob,
   deleteJob,
+  findAllByStatus,
 };
