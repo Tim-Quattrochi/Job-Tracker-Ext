@@ -58,7 +58,32 @@ const getOneJob = (req, res) => {
   });
 };
 
-const updateJob = (req, res) => {};
+const updateJob = (req, res) => {
+  //todo: add validation for required fields.
+  //todo: add authorization check for user.
+  const { id } = req.params;
+  if (!req.body) {
+    return res
+      .status(400)
+      .json({ message: "Please fill out all required fields" });
+  }
+
+  JobDetails.updateById(id, new JobDetails(req.body), (err, data) => {
+    if (err) {
+      if (err.kind === "not_found") {
+        res
+          .status(404)
+          .json({ message: `Job details with id ${id} not found` });
+      } else {
+        res.status(500).json({
+          message: `Error updating job details with id ${id}`,
+        });
+      }
+    } else {
+      res.status(200).json(data);
+    }
+  });
+};
 
 const deleteJob = (req, res) => {};
 
