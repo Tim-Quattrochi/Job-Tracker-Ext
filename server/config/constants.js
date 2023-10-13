@@ -7,6 +7,7 @@ const ACCESS_EXPIRES_IN = process.env.ACCESS_EXPIRES_IN;
 const ACCESS_TOKEN_SECRET = process.env.ACCESS_TOKEN_SECRET;
 const REFRESH_EXPIRES_IN = process.env.REFRESH_EXPIRES_IN;
 const REFRESH_TOKEN_SECRET = process.env.REFRESH_TOKEN_SECRET;
+const APP_NAME = process.env.APP_NAME;
 
 module.exports = {
   PORT,
@@ -18,4 +19,5 @@ module.exports = {
   ACCESS_TOKEN_SECRET,
   REFRESH_EXPIRES_IN,
   REFRESH_TOKEN_SECRET,
+  APP_NAME,
 };
