@@ -1,12 +1,12 @@
 const jobDetailsRouter = require("express").Router();
 const jobDetails = require("../controllers/jobDetails.controller.js");
 
-router.post("/", jobDetails.create);
+jobDetailsRouter.post("/", jobDetails.createJobDetails);
 
-router.get("/:id", jobDetails.findOne);
+jobDetailsRouter.get("/:id", jobDetails.getOneJob);
 
-router.put("/:id", jobDetails.update);
+jobDetailsRouter.put("/:id", jobDetails.updateJob);
 
-router.delete("/:id", jobDetails.delete);
+jobDetailsRouter.delete("/:id", jobDetails.deleteJob);
 
 module.exports = jobDetailsRouter;
