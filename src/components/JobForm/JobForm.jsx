@@ -47,11 +47,11 @@ function JobForm({ addJob }) {
   return (
     <form
       onSubmit={handleSubmit}
-      className="text-primary-300 flex flex-col p-2 m-2 gap-1"
+      className="w-full max-w-lg m-auto py-10 mt-10 px-10 border bg-polo-blue-100"
     >
       <label
         htmlFor="dateApplied"
-        className="text-polo-blue-200 font-bold"
+        className="text-polo-blue-700 font-medium"
       >
         Date Applied:
       </label>
@@ -59,11 +59,15 @@ function JobForm({ addJob }) {
         type="date"
         name="dateApplied"
         id="dateApplied"
-        className="p-2"
+        className="border-solid border-gray-300 border mb-2 py-2 px-4 w-full
+    rounded text-gray-700"
         value={jobData.dateApplied}
         onChange={handleInputChange}
       />
-      <label htmlFor="title" className="text-polo-blue-200 font-bold">
+      <label
+        htmlFor="title"
+        className="text-polo-blue-700 font-medium"
+      >
         Job Title:{" "}
       </label>
       <input
@@ -71,14 +75,15 @@ function JobForm({ addJob }) {
         name="title"
         id="title"
         placeholder="Job Title"
-        className="p-2"
+        className="border-solid border-gray-300 border mb-2 py-2 px-4 w-full rounded
+  text-gray-700"
         value={jobData.title}
         onChange={handleInputChange}
       />
 
       <label
         htmlFor="company"
-        className="py-2 text-polo-blue-200 font-bold"
+        className="text-polo-blue-700 font-medium"
       >
         Company:
       </label>
@@ -86,7 +91,8 @@ function JobForm({ addJob }) {
         type="text"
         name="company"
         id="company"
-        className="p-2"
+        className="border-solid border-gray-300 border mb-2 py-2 px-4 w-full
+    rounded text-gray-700 "
         placeholder="Company"
         value={jobData.company}
         onChange={handleInputChange}
@@ -94,7 +100,7 @@ function JobForm({ addJob }) {
 
       <label
         htmlFor="category"
-        className="py-2 text-polo-blue-200 font-bold"
+        className="text-polo-blue-700 font-medium "
       >
         Status:
       </label>
@@ -102,7 +108,8 @@ function JobForm({ addJob }) {
         role="combobox"
         name="status"
         id="category"
-        className="p-2"
+        className="border-solid border-gray-300 border py-2 px-4 w-full
+    rounded text-gray-700"
         value={jobData.status}
         onChange={handleInputChange}
       >
@@ -115,13 +122,16 @@ function JobForm({ addJob }) {
 
       <label
         htmlFor="additional"
-        className="flex flex-col py-2 text-polo-blue-200 font-bold"
+        className="text-polo-blue-700 font-medium block mt-4"
       >
         Additional Notes:
       </label>
       <textarea
         id="additional"
-        className="mt-1"
+        className="border-solid border-gray-300 border py-20 px-4 w-full
+  rounded text-gray-700"
+        rows={5}
+        cols={5}
         name="additional"
         value={jobData.additional}
         onChange={handleInputChange}
@@ -131,7 +141,7 @@ function JobForm({ addJob }) {
 
       <button
         type="submit"
-        className="bg-polo-blue-500 text-polo-blue-100 mt-5 p-2 border w-20 mx-auto rounded"
+        className="mt-4 w-full bg-polo-blue-800 hover:bg-polo-blue-700 text-polo-blue-50 border shadow py-3 px-6 font-semibold text-md rounded"
       >
         Add Job
       </button>
