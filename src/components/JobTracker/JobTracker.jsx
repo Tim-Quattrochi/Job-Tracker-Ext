@@ -9,8 +9,8 @@ const JobTracker = () => {
     setJobs([...jobs, job]);
   };
   return (
-    <main className="bg-polo-blue-900 w-52 h-full">
-      <h1 className="text-polo-blue-200 font-bold text-center p-3">
+    <main className=" ">
+      <h1 className="text-polo-blue-900 text-center text-4xl font-semibold mt-10">
         My Job Tracker
       </h1>
       <JobForm addJob={addJob} />
