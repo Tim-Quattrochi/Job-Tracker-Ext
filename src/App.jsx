@@ -1,23 +1,15 @@
-import { useState } from "react";
-import JobForm from "./components/JobForm/JobForm";
-import JobList from "./components/JobList/JobList";
+import { Routes, Route } from "react-router-dom";
+import JobTracker from "./components/JobTracker/JobTracker";
+import Login from "./pages/Login/Login";
 
 function App() {
-  const [jobs, setJobs] = useState([]);
-
-  const addJob = (job) => {
-    setJobs([...jobs, job]);
-  };
-
   return (
-    <main className="bg-polo-blue-900 w-52 h-full">
-      <h1 className="text-polo-blue-200 font-bold text-center p-3">
-        {" "}
-        My Job Tracker{" "}
-      </h1>
-      <JobForm addJob={addJob} />
-      <JobList jobs={jobs} />
-    </main>
+    <>
+      <Routes>
+        <Route path="/" element={<JobTracker />} />
+        <Route path="/login" element={<Login />} />
+      </Routes>
+    </>
   );
 }
 
