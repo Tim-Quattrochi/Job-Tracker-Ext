@@ -41,12 +41,13 @@ class JobDetails {
 
   /**
    * @param {number} jobDetailsId  - id of the job details to be retrieved.
-   * @param {function} result  - callback function.
-   * @returns {function} result  - callback function.
+   * @param {function} result - callback function.
+   * @returns {function} result  - callback function that retuns the job details from the database.
    */
   static findById(jobDetailsId, result) {
     sql.query(
-      `SELECT * FROM jobdetails WHERE id = ${jobDetailsId}`,
+      `SELECT * FROM jobdetails WHERE id = ?`,
+      [jobDetailsId],
       (err, res) => {
         if (err) {
           console.log("error: ", err);
@@ -54,7 +55,6 @@ class JobDetails {
           return;
         }
         if (res.length) {
-          console.log("found jobDetails: ", res[0]);
           result(null, res[0]);
           return;
         }

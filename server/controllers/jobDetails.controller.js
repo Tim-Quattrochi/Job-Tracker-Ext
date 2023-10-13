@@ -38,7 +38,25 @@ const createJobDetails = (req, res) => {
   });
 };
 
-const getOneJob = (req, res) => {};
+const getOneJob = (req, res) => {
+  const { id } = req.params;
+
+  JobDetails.findById(id, (err, data) => {
+    if (err) {
+      if (err.kind === "not_found") {
+        res
+          .status(404)
+          .json({ message: `Job details with id ${id} not found` });
+      } else {
+        res.status(500).json({
+          message: `Error retrieving job details with id ${id}`,
+        });
+      }
+    } else {
+      res.status(200).json(data);
+    }
+  });
+};
 
 const updateJob = (req, res) => {};
 
