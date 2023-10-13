@@ -17,7 +17,7 @@ const registerUser = async (req, res) => {
   });
 
   //saving to db.
-  User.create(userDetails, (err, data) => {
+  User.create(userDetails, (err, user) => {
     if (err) {
       res.status(500).json({
         message:
@@ -26,9 +26,13 @@ const registerUser = async (req, res) => {
       });
     } else {
       //send back the user minus the password.
-      delete data.password;
+      delete user.password;
 
-      res.status(201).json(data);
+      //create the access token and payload to send in response.
+      const payload = { id: user.id, email: user.email };
+      const accessToken = User.createAccessToken(payload);
+
+      res.status(201).json({ user: { ...user, accessToken } });
     }
   });
 };
