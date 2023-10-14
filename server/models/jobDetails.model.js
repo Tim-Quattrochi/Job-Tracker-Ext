@@ -127,6 +127,21 @@ class JobDetails {
       }
     );
   }
+
+  static getAllByUserId(id, result) {
+    sql.query(
+      `SELECT * FROM jobdetails WHERE user_id = ?`,
+      [id],
+      (err, res) => {
+        if (err) {
+          console.log("error: ", err);
+          return result(null, err);
+        }
+
+        result(null, res);
+      }
+    );
+  }
 }
 
 module.exports = JobDetails;

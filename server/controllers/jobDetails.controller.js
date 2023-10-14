@@ -121,10 +121,27 @@ const findAllByStatus = (req, res) => {
   });
 };
 
+const getAllJobsByUserId = (req, res) => {
+  const { id } = req.params;
+
+  JobDetails.getAllByUserId(id, (err, data) => {
+    if (err) {
+      res.status(500).json({
+        message:
+          err.message ||
+          "An error occurred while retrieving job details",
+      });
+    } else {
+      res.status(200).json(data);
+    }
+  });
+};
+
 module.exports = {
   createJobDetails,
   getOneJob,
   updateJob,
   deleteJob,
   findAllByStatus,
+  getAllJobsByUserId,
 };
