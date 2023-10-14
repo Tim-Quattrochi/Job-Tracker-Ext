@@ -4,7 +4,7 @@ function JobList({ jobs = null }) {
   const { data, error, isLoading } = useGetJobByUserIdQuery(5); //hard code user id for now.
 
   return (
-    <ul className="divide-y divide-gray-200">
+    <ul className="flex flex-col justify-center divide-y divide-gray-200">
       {data &&
         data.map((job) => (
           <li key={job.id} className="py-6 flex text-center">
@@ -22,7 +22,7 @@ function JobList({ jobs = null }) {
                 {job.status}
               </p>
               <p className="mt-2 text-sm text-gray-500">
-                {job.additional}
+                {job.additionalDetails}
               </p>
             </div>
           </li>
