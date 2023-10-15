@@ -1,3 +1,4 @@
+const { APP_NAME } = require("../config/constants");
 const User = require("../models/user.model");
 
 const registerUser = async (req, res) => {
@@ -49,7 +50,7 @@ const loginUser = async (req, res) => {
       .json({ message: "please fill out all required fields" });
 
   try {
-    User.login(email, password, (err, user) => {
+    User.login(email, password, async (err, user) => {
       if (err?.message === "No user found.") {
         return res
           .status(401)
@@ -84,4 +85,33 @@ const loginUser = async (req, res) => {
   }
 };
 
-module.exports = { registerUser, loginUser };
+const refresh = async (req, res, next) => {
+  try {
+    const cookies = req.cookies;
+
+    if (!cookies[APP_NAME]) {
+      return res
+        .status(401)
+        .json({ message: "Refresh Token not found in cookies." });
+    }
+
+    const refreshTokenFromCookie = cookies[APP_NAME];
+
+    User.refreshUserToken(
+      refreshTokenFromCookie,
+      res,
+      (err, accessToken) => {
+        if (err) {
+          return res.status(401).json({ message: err.message });
+        } else {
+          return res.status(200).json({ accessToken });
+        }
+      }
+    );
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: error.message });
+  }
+};
+
+module.exports = { registerUser, loginUser, refresh };
