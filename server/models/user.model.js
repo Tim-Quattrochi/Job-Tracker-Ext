@@ -118,8 +118,6 @@ class User {
         "SELECT refresh_token FROM users WHERE id = ?",
         [decoded.id],
         (err, dbRes) => {
-          console.log(dbRes);
-          console.log(refreshToken);
           console.log(err);
           if (err) {
             return result(err, null);
@@ -152,7 +150,7 @@ class User {
         id: decoded.id,
         email: decoded.email,
       });
-      console.log("new access token: ", newAccessToken);
+
       return result(null, newAccessToken);
     });
   }
