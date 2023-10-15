@@ -1,7 +1,20 @@
 import { useGetJobByUserIdQuery } from "../../services/auth";
+import { useAuth } from "../../hooks/useAuth";
 
 function JobList({ jobs = null }) {
-  const { data, error, isLoading } = useGetJobByUserIdQuery(5); //hard code user id for now.
+  const { user } = useAuth();
+
+  const { data, error, isLoading } = useGetJobByUserIdQuery(user?.id);
+
+  if (error && error.status === 404) {
+    return (
+      <div className="flex flex-col justify-center h-auto ">
+        <div className=" text-xl font-bold py-6 flex mx-auto">
+          No jobs applied to yet.
+        </div>
+      </div>
+    );
+  }
 
   return (
     <ul className="flex flex-col justify-center divide-y divide-gray-200">
