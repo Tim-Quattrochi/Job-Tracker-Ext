@@ -100,6 +100,62 @@ class User {
       maxAge: 7 * 24 * 60 * 60 * 1000, //7 days
     });
   }
+
+  /**
+   * @description This method will verify the refresh token and create a new access token.
+   * @param {string} refreshToken - the refresh token from the client.
+   * @param {object} res - the response object from the refresh controller
+   * @param {function} result - the callback function to send the new access token to the client.
+   */
+  static refreshUserToken(refreshToken, res, result) {
+    jwt.verify(refreshToken, REFRESH_TOKEN_SECRET, (err, decoded) => {
+      if (err) {
+        return result(err, null);
+      }
+
+      //verify the provided refresh token matches the one in the db.
+      sql.query(
+        "SELECT refresh_token FROM users WHERE id = ?",
+        [decoded.id],
+        (err, dbRes) => {
+          console.log(dbRes);
+          console.log(refreshToken);
+          console.log(err);
+          if (err) {
+            return result(err, null);
+          }
+          if (dbRes.length === 0) {
+            return result({ message: "No user found." }, null);
+          } else if (dbRes.length) {
+            if (dbRes[0].refresh_token !== refreshToken) {
+              return result(
+                { message: "Refresh token does not match." },
+                null
+              );
+            }
+          }
+        }
+      );
+
+      const newRefreshToken = User.createRefreshToken({
+        id: decoded.id,
+        email: decoded.email,
+      });
+
+      // //replace the refresh token in the db.
+      User.saveRefreshToken(decoded.id, newRefreshToken);
+
+      User.createCookie(newRefreshToken, res);
+
+      //create a new access token in exchange for the refresh token.
+      const newAccessToken = User.createAccessToken({
+        id: decoded.id,
+        email: decoded.email,
+      });
+      console.log("new access token: ", newAccessToken);
+      return result(null, newAccessToken);
+    });
+  }
 }
 
 module.exports = User;
