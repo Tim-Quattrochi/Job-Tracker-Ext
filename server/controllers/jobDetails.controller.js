@@ -125,7 +125,11 @@ const getAllJobsByUserId = (req, res) => {
   const { id } = req.params;
 
   JobDetails.getAllByUserId(id, (err, data) => {
-    if (err) {
+    if (data.length === 0) {
+      res.status(404).json({
+        message: `No jobs found for user with id ${id}`,
+      });
+    } else if (err) {
       res.status(500).json({
         message:
           err.message ||
