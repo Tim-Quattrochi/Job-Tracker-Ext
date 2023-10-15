@@ -24,7 +24,7 @@ class JobDetails {
   static create(newJobDetails, result) {
     sql.query(
       "INSERT INTO jobdetails SET ?",
-      newJobDetails,
+      [newJobDetails],
       (err, res) => {
         if (err) {
           console.log("error: ", err);
