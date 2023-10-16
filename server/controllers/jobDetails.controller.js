@@ -1,8 +1,8 @@
 const JobDetails = require("../models/jobDetails.model");
 
 const createJobDetails = (req, res) => {
+  const { id } = req.params;
   const {
-    id = 5, //hardcoding user id for now.
     title,
     companyName,
     dateApplied,
@@ -16,7 +16,7 @@ const createJobDetails = (req, res) => {
   }
 
   const jobDetails = new JobDetails({
-    user_id: id, //id will come from user auth later.
+    user_id: id,
     title,
     companyName,
     dateApplied,
