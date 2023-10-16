@@ -1,4 +1,7 @@
 import { useState } from "react";
+import { useAddJobDataMutation } from "../../services/auth";
+import { useAuth } from "../../hooks/useAuth";
+import TextEdit from "../TextEditor/TextEdit";
 
 const categories = [
   { name: "-Select a status-", value: "" },
@@ -10,8 +13,9 @@ const categories = [
 ];
 
 const initialJobState = {
+  userId: "",
   title: "",
-  company: "",
+  companyName: "",
   dateApplied: new Date().toLocaleDateString() || "",
   additional: "",
   status: "",
@@ -19,7 +23,11 @@ const initialJobState = {
 
 // eslint-disable-next-line react/prop-types
 function JobForm({ addJob }) {
+  const { user } = useAuth();
   const [jobData, setJobData] = useState(initialJobState);
+
+  const [createJob, { data, error, isLoading }] =
+    useAddJobDataMutation();
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -27,27 +35,45 @@ function JobForm({ addJob }) {
     if (name === "status") {
       setJobData({
         ...jobData,
+        userId: user.id,
         status: value,
       });
     } else {
       setJobData({
         ...jobData,
+        userId: user.id,
         [name]: value,
       });
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleTextEditChange = (content) => {
+    setJobData({
+      ...jobData,
+      additional: content,
+    });
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!jobData.title || !jobData.company || !jobData.status) return;
-    addJob(jobData);
-    setJobData(initialJobState);
+
+    if (!jobData.title || !jobData.companyName || !jobData.status)
+      return;
+
+    try {
+      const payload = await createJob(jobData).unwrap();
+
+      addJob(payload);
+      setJobData(initialJobState);
+    } catch (error) {
+      console.error("rejected", error);
+    }
   };
 
   return (
     <form
       onSubmit={handleSubmit}
-      className="w-full max-w-lg m-auto py-10 mt-10 px-10 border bg-polo-blue-100"
+      className="w-full max-w-lg m-auto py-10 mt-10 px-10 border bg-gradient-to-b from-polo-blue-500 via-polo-blue-600 to-polo-blue-700 rounded-lg"
     >
       <label
         htmlFor="dateApplied"
@@ -68,7 +94,7 @@ function JobForm({ addJob }) {
         htmlFor="title"
         className="text-polo-blue-700 font-medium"
       >
-        Job Title:{" "}
+        Job Title:
       </label>
       <input
         type="text"
@@ -89,12 +115,12 @@ function JobForm({ addJob }) {
       </label>
       <input
         type="text"
-        name="company"
+        name="companyName"
         id="company"
         className="border-solid border-gray-300 border mb-2 py-2 px-4 w-full
     rounded text-gray-700 "
         placeholder="Company"
-        value={jobData.company}
+        value={jobData.companyName}
         onChange={handleInputChange}
       />
 
@@ -126,21 +152,14 @@ function JobForm({ addJob }) {
       >
         Additional Notes:
       </label>
-      <textarea
+      <TextEdit
+        content={jobData.additional}
+        onChange={handleTextEditChange}
         id="additional"
-        className="border-solid border-gray-300 border py-20 px-4 w-full
-  rounded text-gray-700"
-        rows={5}
-        cols={5}
-        name="additional"
-        value={jobData.additional}
-        onChange={handleInputChange}
-      >
-        {jobData.additional}
-      </textarea>
+      />
 
       <button
-        type="submit"
+        disabled={isLoading}
         className="mt-4 w-full bg-polo-blue-800 hover:bg-polo-blue-700 text-polo-blue-50 border shadow py-3 px-6 font-semibold text-md rounded"
       >
         Add Job
