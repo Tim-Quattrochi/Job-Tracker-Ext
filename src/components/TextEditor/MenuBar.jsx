@@ -33,7 +33,7 @@ const MenuBar = ({ editor }) => {
   }
 
   return (
-    <div className="flex justify-around items-center bg-gray-100 p-1 border border-gray-300 rounded">
+    <div className="flex justify-around items-center bg-gray-100 p-1 border border-gray-300">
       <input
         type="color"
         onInput={(event) =>
