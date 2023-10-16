@@ -67,7 +67,7 @@ export const authApi = createApi({
     }),
     addJobData: builder.mutation({
       query: (jobForm) => ({
-        url: "/details/",
+        url: `/details/${jobForm.userId}`,
         credentials: "include",
         method: "POST",
         body: jobForm,
