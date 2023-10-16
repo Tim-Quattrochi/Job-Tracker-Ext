@@ -43,14 +43,20 @@ const MenuBar = ({ editor }) => {
       />
 
       <button
-        onClick={() => editor.chain().focus().toggleBold().run()}
+        type="button"
+        onClick={() => {
+          editor.chain().focus().toggleBold().run();
+        }}
         disabled={!editor.can().chain().focus().toggleBold().run()}
         className={editor.isActive("bold") ? "is-active" : ""}
       >
         <img src={boldIcon} alt="bold" className="w-4 h-4" />
       </button>
       <button
-        onClick={() => editor.chain().focus().toggleItalic().run()}
+        type="button"
+        onClick={() => {
+          editor.chain().focus().toggleItalic().run();
+        }}
         disabled={!editor.can().chain().focus().toggleItalic().run()}
         className={editor.isActive("italic") ? "is-active" : ""}
       >
@@ -58,7 +64,10 @@ const MenuBar = ({ editor }) => {
       </button>
 
       <button
-        onClick={() => editor.chain().focus().toggleStrike().run()}
+        type="button"
+        onClick={() => {
+          editor.chain().focus().toggleStrike().run();
+        }}
         disabled={!editor.can().chain().focus().toggleStrike().run()}
         className={editor.isActive("strike") ? "is-active" : ""}
       >
@@ -66,6 +75,7 @@ const MenuBar = ({ editor }) => {
       </button>
 
       <button
+        type="button"
         onClick={() => {
           if (editor.isActive("textStyle", { color: "#958DF1" })) {
             editor.chain().focus().unsetColor().run();
@@ -84,7 +94,10 @@ const MenuBar = ({ editor }) => {
       </button>
 
       <button
-        onClick={() => editor.chain().focus().setParagraph().run()}
+        type="button"
+        onClick={() => {
+          editor.chain().focus().setParagraph().run();
+        }}
         className={editor.isActive("paragraph") ? "is-active" : ""}
       >
         <img src={paragraph} alt="paragraph" className="w-4 h-4" />
@@ -130,8 +143,11 @@ const MenuBar = ({ editor }) => {
             >
               {[1, 2, 3].map((level) => (
                 <button
+                  type="button"
                   key={level}
-                  onClick={() => handleSelect(level)}
+                  onClick={() => {
+                    handleSelect(level);
+                  }}
                   className={`block px-4 py-2 text-sm leading-5 text-center mx-auto text-gray-700 hover:bg-gray-100 hover:text-gray-900 ${
                     editor.isActive("heading", { level })
                       ? "is-active"
@@ -147,17 +163,18 @@ const MenuBar = ({ editor }) => {
         )}
       </div>
       <button
-        onClick={() =>
-          editor.chain().focus().toggleBulletList().run()
-        }
+        type="button"
+        onClick={() => {
+          editor.chain().focus().toggleBulletList().run();
+        }}
         className={editor.isActive("bulletList") ? "is-active" : ""}
       >
         <img src={list} alt="list" className="w-4 h-4" />
       </button>
       <button
-        onClick={() =>
-          editor.chain().focus().toggleOrderedList().run()
-        }
+        onClick={() => {
+          editor.chain().focus().toggleOrderedList().run();
+        }}
         className={editor.isActive("orderedList") ? "is-active" : ""}
       >
         <img
@@ -168,20 +185,26 @@ const MenuBar = ({ editor }) => {
       </button>
 
       <button
-        onClick={() => editor.chain().focus().undo().run()}
+        onClick={() => {
+          editor.chain().focus().undo().run();
+        }}
         disabled={!editor.can().chain().focus().undo().run()}
       >
         <img src={undo} alt="undo" className="w-4 h-4" />
       </button>
       <button
-        onClick={() => editor.chain().focus().redo().run()}
+        onClick={() => {
+          editor.chain().focus().redo().run();
+        }}
         disabled={!editor.can().chain().focus().redo().run()}
       >
         <img src={redo} alt="redo" className="w-4 h-4" />
       </button>
 
       <button
-        onClick={() => editor.chain().focus().toggleHighlight().run()}
+        onClick={() => {
+          editor.chain().focus().toggleHighlight().run();
+        }}
         className={editor.isActive("highlight") ? "is-active" : ""}
       >
         <img
