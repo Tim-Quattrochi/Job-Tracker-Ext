@@ -36,10 +36,9 @@ const MenuBar = ({ editor }) => {
     <div className="flex justify-around items-center bg-gray-100 p-1 border border-gray-300">
       <input
         type="color"
-        onInput={(event) =>
-          editor.chain().focus().setColor(event.target.value).run()
-        }
-        value={editor.getAttributes("textStyle").color}
+        onInput={(event) => {
+          editor.chain().focus().setColor(event.target.value).run();
+        }}
         data-testid="setColor"
       />
 
