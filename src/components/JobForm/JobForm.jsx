@@ -17,7 +17,7 @@ const initialJobState = {
   title: "",
   companyName: "",
   dateApplied: new Date().toLocaleDateString() || "",
-  additional: "",
+  additionalDetails: "",
   status: "",
 };
 
@@ -50,7 +50,7 @@ function JobForm() {
   const handleTextEditChange = (content) => {
     setJobData({
       ...jobData,
-      additional: content,
+      additionalDetails: content,
     });
   };
 
@@ -63,7 +63,7 @@ function JobForm() {
     try {
       await createJob(jobData);
 
-      setJobData(initialJobState);
+      // setJobData(initialJobState);
     } catch (error) {
       console.error("rejected", error);
     }
@@ -146,15 +146,15 @@ function JobForm() {
       </select>
 
       <label
-        htmlFor="additional"
+        htmlFor="additionalDetails"
         className="text-polo-blue-700 font-medium block mt-4"
       >
         Additional Notes:
       </label>
       <TextEdit
-        content={jobData.additional}
+        content={jobData.additionalDetails}
         onChange={handleTextEditChange}
-        id="additional"
+        id="additionalDetails"
       />
 
       <button
