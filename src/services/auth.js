@@ -72,12 +72,15 @@ export const authApi = createApi({
         method: "POST",
         body: jobForm,
       }),
+      invalidatesTags: ["Job"], //when this mutation is called, it will invalidate the Job tag, so that the next time the getJobByUserId query is called, it will refetch the data from the server.
     }),
     getJobByUserId: builder.query({
       query: (userId) => ({
         url: `/details/jobs/${userId}`,
         method: "GET",
       }),
+      transformResponse: (res) => res.sort((a, b) => b.id - a.id), //sort response by id.
+      providesTags: ["Job"],
     }),
   }),
 });
