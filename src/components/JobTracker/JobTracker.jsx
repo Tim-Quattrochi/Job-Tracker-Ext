@@ -4,11 +4,7 @@ import JobList from "../JobList/JobList";
 import { useAuth } from "../../hooks/useAuth";
 
 const JobTracker = () => {
-  const [jobs, setJobs] = useState([]);
   const { user } = useAuth();
-  const addJob = (job) => {
-    setJobs([...jobs, job]);
-  };
 
   return (
     <main className=" ">
@@ -16,8 +12,9 @@ const JobTracker = () => {
         <div className="my-2 font-medium">{user && user.name} 👋</div>
         <span className="p-2 ">Welcome to your Job Tracker</span>
       </h1>
-      <JobForm addJob={addJob} />
-      <JobList jobs={jobs} addJob={addJob} />
+      <JobForm />
+
+      <JobList />
     </main>
   );
 };

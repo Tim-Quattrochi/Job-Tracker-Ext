@@ -1,7 +1,7 @@
 import { useGetJobByUserIdQuery } from "../../services/auth";
 import { useAuth } from "../../hooks/useAuth";
 
-function JobList({ jobs, addJob }) {
+function JobList() {
   const { user } = useAuth();
 
   const { data, error, isLoading } = useGetJobByUserIdQuery(user?.id);
@@ -18,8 +18,8 @@ function JobList({ jobs, addJob }) {
 
   return (
     <ul className="flex flex-col justify-center divide-y divide-gray-200">
-      {jobs &&
-        jobs.map((job) => (
+      {data &&
+        data.map((job) => (
           <li key={job.id} className="py-6 flex text-center">
             <div className="ml-4">
               <h2 className="text-lg font-medium text-gray-900">
