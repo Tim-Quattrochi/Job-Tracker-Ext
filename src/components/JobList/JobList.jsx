@@ -1,8 +1,4 @@
 import { useEffect } from "react";
-import {
-  useGetJobByUserIdQuery,
-  useDeleteJobMutation,
-} from "../../services/auth";
 import { useAuth } from "../../hooks/useAuth";
 import { formatDate } from "../../utilities/formatDate";
 import JobTable from "../JobForm/JobTable/JobTable";
@@ -15,6 +11,10 @@ import {
 } from "../../features/searchSlice";
 import RenderRichText from "../TextEditor/RenderRichText";
 import { useDispatch, useSelector } from "react-redux";
+import {
+  useDeleteJobMutation,
+  useGetJobByUserIdQuery,
+} from "../../features/auth/jobSlice";
 
 const options = {
   keys: ["companyName", "status"],
@@ -113,6 +113,7 @@ function JobList() {
           data={data}
           results={results}
           formatDate={formatDate}
+          deleteJob={deleteJob}
         />
       </div>
     </>
