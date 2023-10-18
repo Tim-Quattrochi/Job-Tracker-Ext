@@ -2,19 +2,15 @@ const JobDetails = require("../models/jobDetails.model");
 
 const createJobDetails = (req, res) => {
   const { id } = req.params;
-  const {
-    title,
-    companyName,
-    dateApplied,
-    status,
-    additionalDetails,
-  } = req.body;
+  const { title, companyName, dateApplied, status } = req.body;
   if (!title || !companyName || !dateApplied || !status) {
     return res
       .status(400)
       .json({ message: "please fill out all required fields" });
   }
-
+  const additionalDetails = JSON.stringify(
+    req.body.additionalDetails
+  );
   const jobDetails = new JobDetails({
     user_id: id,
     title,
