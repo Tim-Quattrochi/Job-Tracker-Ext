@@ -82,6 +82,13 @@ export const authApi = createApi({
       transformResponse: (res) => res.sort((a, b) => b.id - a.id), //sort response by id.
       providesTags: ["Job"],
     }),
+    deleteJob: builder.mutation({
+      query: (id) => ({
+        url: `/details/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["Job"],
+    }),
   }),
 });
 
@@ -89,4 +96,5 @@ export const {
   useSignInMutation,
   useAddJobDataMutation,
   useGetJobByUserIdQuery,
+  useDeleteJobMutation,
 } = authApi;
