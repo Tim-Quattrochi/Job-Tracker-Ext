@@ -1,6 +1,6 @@
 import { useGetJobByUserIdQuery } from "../../services/auth";
 import { useAuth } from "../../hooks/useAuth";
-
+import RenderRichText from "../TextEditor/RenderRichText";
 function JobList() {
   const { user } = useAuth();
 
@@ -35,7 +35,7 @@ function JobList() {
                 {job.status}
               </p>
               <p className="mt-2 text-sm text-gray-500">
-                {job.additionalDetails}
+                <RenderRichText content={job.additionalDetails} />
               </p>
             </div>
           </li>
