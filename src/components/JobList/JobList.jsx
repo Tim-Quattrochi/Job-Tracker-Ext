@@ -14,7 +14,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   useDeleteJobMutation,
   useGetJobByUserIdQuery,
-} from "../../features/jobs/jobSlice";
+} from "../../features/jobs/jobApi";
 
 const options = {
   keys: ["companyName", "status"],

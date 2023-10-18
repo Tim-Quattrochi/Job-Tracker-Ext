@@ -29,7 +29,10 @@ const JobTable = ({ data, results, formatDate, deleteJob }) => {
                 <span className="inline-block w-1/3 md:hidden font-bold">
                   Actions
                 </span>
-                <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 border border-blue-500 rounded">
+                <button
+                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 border border-blue-500 rounded"
+                  onClick={() => {}}
+                >
                   Edit
                 </button>
                 <button

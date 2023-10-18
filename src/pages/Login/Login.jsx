@@ -1,7 +1,13 @@
 import { useState } from "react";
 import Input from "../../components/Input/Input";
 import Label from "../../components/label/Label";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useSignInMutation } from "../../services/auth";
+import { useDispatch } from "react-redux";
+import {
+  setCredentials,
+  setUser,
+} from "../../features/auth/authSlice";
 
 const initialState = {
   email: "",
@@ -10,17 +16,39 @@ const initialState = {
 const Login = () => {
   const [formData, setFormData] = useState(initialState);
 
+  const [signIn, { isLoading }] = useSignInMutation();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ [name]: value });
+    setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
+    try {
+      const { user } = await signIn(formData).unwrap();
+      //store user in local storage
+
+      // dispatch(setUser(user));
+      dispatch(setCredentials(user));
+      localStorage.setItem("user", JSON.stringify(user));
+
+      if (user) {
+        navigate("/");
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <div className="min-h-full h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-      <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+      <form
+        className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
+        onSubmit={handleSubmit}
+      >
         <div className="mb-4">
           <Label
             htmlFor="email"

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useAddJobDataMutation } from "../../features/jobs/jobSlice";
+import { useAddJobDataMutation } from "../../features/jobs/jobApi";
 import { useAuth } from "../../hooks/useAuth";
 import TextEdit from "../TextEditor/TextEdit";
 
