@@ -8,13 +8,13 @@ import {
   setSearchWord,
   setSelectedStatus,
   setResults,
-} from "../../features/searchSlice";
+} from "../../features/jobs/searchSlice";
 import RenderRichText from "../TextEditor/RenderRichText";
 import { useDispatch, useSelector } from "react-redux";
 import {
   useDeleteJobMutation,
   useGetJobByUserIdQuery,
-} from "../../features/auth/jobSlice";
+} from "../../features/jobs/jobSlice";
 
 const options = {
   keys: ["companyName", "status"],
