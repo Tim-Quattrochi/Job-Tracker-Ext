@@ -1,12 +1,12 @@
-export const options = {
-  month: "2-digit",
-  day: "2-digit",
-  year: "2-digit",
-};
-
 export const formatDate = (timestamp) => {
-  const date = new Date(timestamp);
-  const dateString = date.toLocaleDateString("en-US", options);
+  //turn the string around
+  const turnAround = timestamp.split("-").reverse().join("-");
 
-  return dateString;
+  const dateArray = turnAround.split("-");
+  const year = dateArray[2];
+  const month = dateArray[1];
+  const day = dateArray[0];
+  const formattedDate = `${month}/${day}/${year}`;
+
+  return formattedDate;
 };
