@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import { useAuth } from "../../hooks/useAuth";
-import { formatDate } from "../../utilities/formatDate";
 import JobTable from "../JobForm/JobTable/JobTable";
 import ShowError from "../ShowError/ShowError";
 import Fuse from "fuse.js";
@@ -106,7 +105,6 @@ function JobList() {
         <JobTable
           data={data}
           results={results}
-          formatDate={formatDate}
           deleteJob={deleteJob}
           deleteError={deleteError}
         />
