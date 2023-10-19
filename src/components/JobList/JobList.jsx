@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useAuth } from "../../hooks/useAuth";
 import { formatDate } from "../../utilities/formatDate";
 import JobTable from "../JobForm/JobTable/JobTable";
+import ShowError from "../ShowError/ShowError";
 import Fuse from "fuse.js";
 import Search from "../Search/Search";
 import {
@@ -80,14 +81,7 @@ function JobList() {
   return (
     <>
       {deleteError && (
-        <div role="alert" className="m-5">
-          <div className="bg-red-500 text-white font-bold rounded-t px-4 py-2">
-            Error
-          </div>
-          <div className="border border-t-0 border-red-400 rounded-b bg-red-100 px-4 py-3 text-red-700">
-            <p>{deleteError.error || "Error while deleting job."}</p>
-          </div>
-        </div>
+        <ShowError errorMsg="Error while deleting job." />
       )}
 
       <div className="p-4">
@@ -103,17 +97,18 @@ function JobList() {
           }
         >
           <option value="">Filter by status</option>
-          <option value="applied">applied</option>
-          <option value="interviewing">interviewing</option>
-          <option value="rejected">rejected</option>
-          <option value="offered">offered</option>
-          <option value="accepted">accepted</option>
+          <option value="Applied">Applied</option>
+          <option value="Interviewing">Interviewing</option>
+          <option value="Rejected">Rejected</option>
+          <option value="Offered">Offered</option>
+          <option value="Accepted">Accepted</option>
         </select>
         <JobTable
           data={data}
           results={results}
           formatDate={formatDate}
           deleteJob={deleteJob}
+          deleteError={deleteError}
         />
       </div>
     </>
