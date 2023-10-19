@@ -82,6 +82,14 @@ export const jobApi = createApi({
       }),
       invalidatesTags: ["Job"],
     }),
+    editJob: builder.mutation({
+      query: (jobForm) => ({
+        url: `/details/${jobForm.id}`,
+        method: "PUT",
+        body: jobForm,
+      }),
+      invalidatesTags: ["Job"],
+    }),
   }),
 });
 
@@ -89,4 +97,5 @@ export const {
   useAddJobDataMutation,
   useGetJobByUserIdQuery,
   useDeleteJobMutation,
+  useEditJobMutation,
 } = jobApi;
