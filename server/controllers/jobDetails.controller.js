@@ -132,7 +132,19 @@ const getAllJobsByUserId = (req, res) => {
           "An error occurred while retrieving job details",
       });
     } else {
-      res.status(200).json(data);
+      //format the date before sending back to the client.
+      const formattedData = data.map((job) => {
+        const date = new Date(job.dateApplied);
+        const dateString = date.toLocaleDateString("en-US", {
+          month: "2-digit",
+          day: "2-digit",
+          year: "numeric",
+        });
+        const dateArray = dateString.split("/");
+        const formattedDate = `${dateArray[2]}-${dateArray[0]}-${dateArray[1]}`;
+        return { ...job, dateApplied: formattedDate };
+      });
+      res.status(200).json(formattedData);
     }
   });
 };
