@@ -5,18 +5,18 @@ import TextEdit from "../TextEditor/TextEdit";
 
 const categories = [
   { name: "-Select a status-", value: "" },
-  { name: "applied", value: "Applied" },
-  { name: "interviewed", value: "Interviewed" },
-  { name: "rejected", value: "Rejected" },
-  { name: "offered", value: "Offered" },
-  { name: "accepted", value: "Accepted" },
+  { name: "Applied", value: "Applied" },
+  { name: "Interviewing", value: "Interviewing" },
+  { name: "Rejected", value: "Rejected" },
+  { name: "Offered", value: "Offered" },
+  { name: "Accepted", value: "Accepted" },
 ];
 
 const initialJobState = {
   userId: "",
   title: "",
   companyName: "",
-  dateApplied: new Date().toLocaleDateString() || "",
+  dateApplied: new Date(Date.now()).toISOString().split("T")[0], //Todays date.
   additionalDetails: "",
   status: "",
 };
@@ -63,7 +63,7 @@ function JobForm() {
     try {
       await createJob(jobData);
 
-      // setJobData(initialJobState);
+      setJobData(initialJobState);
     } catch (error) {
       console.error("rejected", error);
     }
@@ -86,6 +86,18 @@ function JobForm() {
         id="dateApplied"
         className="border-solid border-gray-300 border mb-2 py-2 px-4 w-full
     rounded text-gray-700"
+        min={
+          //two weeks before today
+          new Date(Date.now() - 14 * 24 * 60 * 60 * 1000)
+            .toISOString()
+            .split("T")[0]
+        }
+        max={
+          // one month from today
+          new Date(Date.now() + 30 * 24 * 60 * 60 * 1000)
+            .toISOString()
+            .split("T")[0]
+        }
         value={jobData.dateApplied}
         onChange={handleInputChange}
       />
