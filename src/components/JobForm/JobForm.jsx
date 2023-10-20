@@ -22,7 +22,7 @@ const initialJobState = {
 };
 
 // eslint-disable-next-line react/prop-types
-function JobForm() {
+function JobForm({ setShowModal }) {
   const { user } = useAuth();
   const [jobData, setJobData] = useState(initialJobState);
 
@@ -64,6 +64,7 @@ function JobForm() {
       await createJob(jobData);
 
       setJobData(initialJobState);
+      setShowModal(false);
     } catch (error) {
       console.error("rejected", error);
     }
