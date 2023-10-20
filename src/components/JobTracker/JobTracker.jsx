@@ -1,5 +1,3 @@
-import { useState } from "react";
-import JobForm from "../JobForm/JobForm";
 import JobList from "../JobList/JobList";
 import { useAuth } from "../../hooks/useAuth";
 
@@ -12,7 +10,6 @@ const JobTracker = () => {
         <div className="my-2 font-medium">{user && user.name} 👋</div>
         <span className="p-2 ">Welcome to your Job Tracker</span>
       </h1>
-      <JobForm />
 
       <JobList />
     </main>
