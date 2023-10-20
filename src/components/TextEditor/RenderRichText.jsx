@@ -31,7 +31,7 @@ const RenderRichText = ({ content }) => {
     editorProps: {
       attributes: {
         class:
-          "prose lg:prose-xl h-52 bg-white overflow-y-auto focus:outline-none min-h-[300px]",
+          " absolute prose lg:prose-xl h-52 bg-white overflow-y-auto focus:outline-none min-h-[300px]",
       },
     },
   });

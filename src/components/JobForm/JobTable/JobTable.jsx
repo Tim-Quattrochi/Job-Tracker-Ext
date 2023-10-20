@@ -1,51 +1,106 @@
-const JobTable = ({ data, results, formatDate, deleteJob }) => {
+import { useState } from "react";
+import { useEditJobMutation } from "../../../features/jobs/jobApi";
+import { formatDate } from "../../../utilities/formatDate";
+import Modal from "../../Modal/Modal";
+import ShowError from "../../ShowError/ShowError";
+import SideBar from "../../SideBar/SideBar";
+import TableHeader from "./TableHeader";
+import TableRow from "./TableRow";
+
+const JobTable = ({ data, results, deleteJob, deleteError }) => {
+  const [editingJobId, setEditingJobId] = useState(null);
+  const [editedJob, setEditedJob] = useState({});
+  const [showModal, setShowModal] = useState(false);
+  const [showSidebars, setShowSidebars] = useState({});
+  const [showSideBar, setShowSideBar] = useState(false);
+
+  const [jobToDelete, setJobToDelete] = useState(null);
+
+  const [editJob, { error }] = useEditJobMutation();
+
+  const handleEditClick = (job) => {
+    setEditingJobId(job.id || job.item.id);
+    setEditedJob(job);
+  };
+
+  const handleSaveClick = () => {
+    editJob(editedJob);
+
+    setEditedJob({});
+    setEditingJobId(null);
+  };
+
+  const handleCancelClick = () => {
+    setEditedJob({});
+    setEditingJobId(null);
+  };
+
+  const handleDeleteJob = (id) => {
+    deleteJob(id);
+    setShowModal(false);
+    setEditingJobId(null);
+  };
+
+  const toggleSidebar = (jobId) => {
+    setShowSidebars((prevShowSidebars) => ({
+      ...prevShowSidebars,
+      [jobId]: !prevShowSidebars[jobId],
+    }));
+  };
+
+  const isSidebarOpen = (jobId) => {
+    return showSidebars[jobId] || false;
+  };
+
+  const isEditing = (job) => {
+    return job?.id === editingJobId || job.item?.id === editingJobId;
+  };
+
+  const getJobData = (job) => {
+    if (isEditing(job)) {
+      return editedJob;
+    } else {
+      return job.item || job;
+    }
+  };
+
   return (
-    <table className="w-full border border-collapse">
-      <thead>
-        <tr className="bg-gray-200">
-          <th className="p-2">Date Applied</th>
-          <th className="p-2">Job Title</th>
-          <th className="p-2">Company Name</th>
-          <th className="p-2">Status</th>
-          <th className="p-2">Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        {data &&
-          results &&
-          results.map((job) => (
-            <tr key={job.id || job.item.id}>
-              <td className="p-2">
-                {formatDate(job.item?.dateApplied || job.dateApplied)}
-              </td>
-              <td className="p-2">{job.item?.title || job.title}</td>
-              <td className="p-2">
-                {job.item?.companyName || job.companyName}
-              </td>
-              <td className="p-2">
-                {job.item?.status || job.status}
-              </td>
-              <td className="p-2 md:border md:border-grey-500 text-left block md:table-cell">
-                <span className="inline-block w-1/3 md:hidden font-bold">
-                  Actions
-                </span>
-                <button
-                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 border border-blue-500 rounded"
-                  onClick={() => {}}
-                >
-                  Edit
-                </button>
-                <button
-                  className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 border border-red-500 rounded"
-                  onClick={() => deleteJob(job.id)}
-                >
-                  Delete
-                </button>
-              </td>
-            </tr>
-          ))}
-      </tbody>
-    </table>
+    <>
+      {error && (
+        <ShowError errorMsg="Something went wrong while saving." />
+      )}
+
+      <table className="w-full border border-collapse">
+        <TableHeader />
+        <tbody>
+          {data &&
+            results &&
+            results.map((job) => (
+              <TableRow
+                key={job.id || job.item.id}
+                job={job}
+                editedJob={editJob}
+                isEditing={isEditing}
+                toggleSidebar={toggleSidebar}
+                isSidebarOpen={isSidebarOpen}
+                handleEditClick={handleEditClick}
+                handleSaveClick={handleSaveClick}
+                handleCancelClick={handleCancelClick}
+                handleDeleteJob={handleDeleteJob}
+                setShowModal={setShowModal}
+                getJobData={getJobData}
+                setEditedJob={setEditedJob}
+                showModal={showModal}
+                setShowSideBar={setShowSideBar}
+                showSidebars={showSidebars}
+                setShowSidebars={setShowSidebars}
+                setJobToDelete={setJobToDelete}
+                jobToDelete={jobToDelete}
+              />
+            ))}
+        </tbody>
+      </table>
+    </>
   );
 };
 
