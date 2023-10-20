@@ -1,9 +1,6 @@
 import { useState } from "react";
 import { useEditJobMutation } from "../../../features/jobs/jobApi";
-import { formatDate } from "../../../utilities/formatDate";
-import Modal from "../../Modal/Modal";
 import ShowError from "../../ShowError/ShowError";
-import SideBar from "../../SideBar/SideBar";
 import TableHeader from "./TableHeader";
 import TableRow from "./TableRow";
 
@@ -73,7 +70,13 @@ const JobTable = ({ data, results, deleteJob, deleteError }) => {
       <table className="w-full border border-collapse">
         <TableHeader />
         <tbody>
-          {data &&
+          {results?.length === 0 ? (
+            <tr className="flex flex-col justify-center h-auto ">
+              <td className="text-xl font-bold py-6 mx-auto text-center">
+                No jobs found.
+              </td>
+            </tr>
+          ) : (
             results &&
             results.map((job) => (
               <TableRow
@@ -97,7 +100,8 @@ const JobTable = ({ data, results, deleteJob, deleteError }) => {
                 setJobToDelete={setJobToDelete}
                 jobToDelete={jobToDelete}
               />
-            ))}
+            ))
+          )}
         </tbody>
       </table>
     </>
