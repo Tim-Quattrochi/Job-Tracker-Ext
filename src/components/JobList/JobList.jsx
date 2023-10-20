@@ -9,7 +9,6 @@ import {
   setSelectedStatus,
   setResults,
 } from "../../features/jobs/searchSlice";
-import RenderRichText from "../TextEditor/RenderRichText";
 import { useDispatch, useSelector } from "react-redux";
 import {
   useDeleteJobMutation,
@@ -70,16 +69,6 @@ function JobList() {
     );
   }
 
-  if ((error && error.status === 404) || !data) {
-    return (
-      <div className="flex flex-col justify-center h-auto ">
-        <div className=" text-xl font-bold py-6 flex mx-auto">
-          No jobs applied to yet.
-        </div>
-      </div>
-    );
-  }
-
   return (
     <>
       {deleteError && (
@@ -109,7 +98,7 @@ function JobList() {
           <option value="Accepted">Accepted</option>
         </select>
         <button
-          className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center ml-auto"
+          className="bg-polo-blue-500 hover:bg-gray-400 text-polo-blue-50 font-medium py-2 h-10 px-2 rounded inline-flex items-center ml-auto"
           onClick={() => setShowModal(true)}
         >
           <svg
@@ -153,6 +142,13 @@ function JobList() {
           deleteJob={deleteJob}
           deleteError={deleteError}
         />
+        {!data && (
+          <div className="h-auto mx-auto ">
+            <div className=" text-xl font-bold py-6 ">
+              No jobs applied to yet.
+            </div>
+          </div>
+        )}
       </div>
     </>
   );
