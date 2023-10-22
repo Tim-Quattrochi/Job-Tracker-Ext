@@ -1,7 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { authApi } from "../services/auth";
 import { jobApi } from "../features/jobs/jobApi";
-import searchSlice from "../features/jobs/searchSlice";
+import searchReducer from "../features/jobs/searchSlice";
 import authReducer from "../features/auth/authSlice";
 
 const store = configureStore({
@@ -9,7 +9,7 @@ const store = configureStore({
     [authApi.reducerPath]: authApi.reducer,
     [jobApi.reducerPath]: jobApi.reducer,
     auth: authReducer,
-    search: searchSlice,
+    search: searchReducer,
     jobs: jobApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
