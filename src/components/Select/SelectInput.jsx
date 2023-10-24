@@ -8,7 +8,7 @@ const SelectInput = ({ handleSelectChange, selectedStatus }) => {
         src={downArrow}
       />
       <select
-        className="w-40 h-10 px-5 py-2  border border-primary-1000 rounded-lg ml-3 mb-4 appearance-none text-primary-1000 text-base "
+        className="w-40 h-10 px-5 py-2  border border-primary-1000 rounded-lg ml-3  appearance-none text-primary-1000 text-base "
         value={selectedStatus}
         onChange={handleSelectChange}
       >
