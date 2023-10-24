@@ -4,21 +4,23 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ["Arial", "sans"],
+        inter: ["Inter", "sans"],
       },
       colors: {
-        "polo-blue": {
-          50: "#f4f7f9",
-          100: "#ebf0f4",
-          200: "#dbe3ea",
-          300: "#c5d1dc",
-          400: "#adbacc",
-          500: "#93a1ba",
-          600: "#818daa",
-          700: "#6e7894",
-          800: "#5a6279",
-          900: "#4d5462",
-          950: "#2d3139",
+        primary: {
+          text: "#666666",
+          50: "#F9FEFF",
+          100: "#F1F8FA",
+          200: "#DCECF1",
+          300: "#BDDAE4",
+          400: "#8FBFD1",
+          500: "#5A9DB6",
+          600: "#4185A1",
+          700: "#376983;",
+          800: "#32586C",
+          900: "#2F4A5B",
+          950: "#2B3F4E",
+          1000: "#192833",
         },
 
         success: "#34D399",
