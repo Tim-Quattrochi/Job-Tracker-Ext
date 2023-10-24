@@ -5,14 +5,18 @@ const JobTracker = () => {
   const { user } = useAuth();
 
   return (
-    <main className=" ">
-      <h1 className="text-polo-blue-900 text-center text-4xl font-semibold mt-10">
-        <div className="my-2 font-medium">{user && user.name} 👋</div>
-        <span className="p-2 ">Welcome to your Job Tracker</span>
-      </h1>
+    <>
+      <div className="flex flex-col h-auto mx-auto justify-center items-center py-12 gap-3 px-8 max-w-7xl">
+        <span className="text-[#000000] text-center text-xl font-normal ">
+          {user && user.name} 👋
+        </span>
+        <span className="text-2xl md:text-4xl text-primary-1000 font-semibold">
+          Welcome to your Job Tracker
+        </span>
+      </div>
 
       <JobList />
-    </main>
+    </>
   );
 };
 
