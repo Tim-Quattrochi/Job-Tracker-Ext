@@ -16,6 +16,7 @@ import {
 } from "../../features/jobs/jobApi";
 import Modal from "../Modal/Modal";
 import JobForm from "../JobForm/JobForm";
+import SelectInput from "../Select/SelectInput";
 
 const options = {
   keys: ["companyName", "status"],
@@ -37,6 +38,10 @@ function JobList() {
   const selectedStatus = useSelector(
     (state) => state.search.selectedStatus
   );
+
+  const handleSelectChange = (e) => {
+    dispatch(setSelectedStatus(e.target.value));
+  };
 
   useEffect(() => {
     if (searchWord || selectedStatus) {
@@ -83,20 +88,10 @@ function JobList() {
           search={searchWord}
           setSearchWord={(value) => dispatch(setSearchWord(value))}
         />
-        <select
-          className="p-2 border border-gray-300 rounded ml-2 mb-4"
-          value={selectedStatus}
-          onChange={(e) =>
-            dispatch(setSelectedStatus(e.target.value))
-          }
-        >
-          <option value="">Filter by status</option>
-          <option value="Applied">Applied</option>
-          <option value="Interviewing">Interviewing</option>
-          <option value="Rejected">Rejected</option>
-          <option value="Offered">Offered</option>
-          <option value="Accepted">Accepted</option>
-        </select>
+        <SelectInput
+          handleSelectChange={handleSelectChange}
+          selectedStatus={selectedStatus}
+        />
         <button
           className="bg-polo-blue-500 hover:bg-gray-400 text-polo-blue-50 font-medium py-2 h-10 px-2 rounded inline-flex items-center ml-auto"
           onClick={() => setShowModal(true)}
