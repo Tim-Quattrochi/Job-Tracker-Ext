@@ -22,7 +22,7 @@ export default {
           950: "#2B3F4E",
           1000: "#192833",
         },
-
+        red: "#FF0000",
         success: "#34D399",
         warning: "#FBBF24",
         danger: "#EF4444",
