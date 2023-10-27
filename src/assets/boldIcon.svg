@@ -1,1 +1,5 @@
-<svg id="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><defs><style>.cls-1{fill:none;}</style></defs><title>text-bold</title><path d="M18.25,25H9V7h8.5a5.25,5.25,0,0,1,4,8.65A5.25,5.25,0,0,1,18.25,25ZM12,22h6.23a2.25,2.25,0,1,0,0-4.5H12Zm0-7.5h5.5a2.25,2.25,0,1,0,0-4.5H12Z"/><rect id="_Transparent_Rectangle_" data-name="&lt;Transparent Rectangle&gt;" class="cls-1" width="32" height="32"/></svg>
+<svg width="37" height="32" viewBox="0 0 37 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="_WYSIWYG editor icon">
+<path id="Icon" d="M22.3222 14.79C23.4269 14.12 24.2014 13.02 24.2014 12C24.2014 9.74 22.2083 8 19.6458 8H12.5278V22H20.5455C22.9258 22 24.7708 20.3 24.7708 18.21C24.7708 16.69 23.7914 15.39 22.3222 14.79ZM15.9444 10.5H19.3611C20.3064 10.5 21.0694 11.17 21.0694 12C21.0694 12.83 20.3064 13.5 19.3611 13.5H15.9444V10.5ZM19.9305 19.5H15.9444V16.5H19.9305C20.8758 16.5 21.6389 17.17 21.6389 18C21.6389 18.83 20.8758 19.5 19.9305 19.5Z" fill="#98A2B3"/>
+</g>
+</svg>
