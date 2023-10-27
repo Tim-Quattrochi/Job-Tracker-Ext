@@ -1,3 +1,76 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer utilities {
+  @variants responsive {
+    /* Hide scrollbar for Chrome, Safari and Opera */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+
+    /* Hide scrollbar for IE, Edge and Firefox */
+    .no-scrollbar {
+      -ms-overflow-style: none; /* IE and Edge */
+      scrollbar-width: none; /* Firefox */
+    }
+  }
+}
+
+.tiptap p.is-editor-empty:first-child::before {
+  color: rgba(0, 0, 0, 0.3);
+  content: attr(data-placeholder);
+  float: left;
+  font-family: Inter;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px; /* 150% */
+  height: 0;
+  pointer-events: none;
+}
+
+.tiptap.ProseMirror {
+  padding: 10px;
+  background: white;
+  border-radius: 0 0 5px 5px;
+  min-width: 100%;
+  min-height: 100px;
+  outline: none;
+}
+.ProseMirror:focus {
+  border: none;
+  outline: none;
+}
+
+.ProseMirror > * + * {
+  margin-top: 0.75em;
+}
+
+.ProseMirror ul,
+.ProseMirror ol {
+  padding: 0 2rem;
+  color: black;
+}
+
+.ProseMirror h1,
+.ProseMirror h2,
+.ProseMirror h3,
+.ProseMirror h4,
+.ProseMirror h5,
+.ProseMirror h6 {
+  line-height: 1.1;
+}
+
+.ProseMirror a {
+  text-decoration: underline;
+}
+
+.tiptap:focus {
+  border: none;
+  outline: none !important;
+}
+
+.ProseMirror:focus {
+  outline: none !important;
+}
