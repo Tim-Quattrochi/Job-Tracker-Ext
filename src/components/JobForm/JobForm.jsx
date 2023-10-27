@@ -73,106 +73,106 @@ function JobForm({ setShowModal }) {
   return (
     <form
       onSubmit={handleSubmit}
-      className="w-full max-w-lg m-auto py-10 mt-10 px-10 border bg-gradient-to-b from-polo-blue-500 via-polo-blue-600 to-polo-blue-700 rounded-lg"
+      className="w-[440px] h-[527px] px-8 pt-16 pb-8 bg-white rounded-xl shadow flex-col justify-start items-end gap-6 inline-flex overflow-y-scroll no-scrollbar"
     >
       <label
         htmlFor="dateApplied"
-        className="text-polo-blue-700 font-medium"
+        className="w-full flex flex-col items-start gap-2 text-black font-normal"
       >
         Date Applied:
+        <input
+          type="date"
+          name="dateApplied"
+          id="dateApplied"
+          className="border-solid border-primary-600 border mb-2 py-2 px-5 w-full
+    rounded-lg text-gray-700"
+          min={
+            //two weeks before today
+            new Date(Date.now() - 14 * 24 * 60 * 60 * 1000)
+              .toISOString()
+              .split("T")[0]
+          }
+          max={
+            // one month from today
+            new Date(Date.now() + 30 * 24 * 60 * 60 * 1000)
+              .toISOString()
+              .split("T")[0]
+          }
+          value={jobData.dateApplied}
+          onChange={handleInputChange}
+        />
       </label>
-      <input
-        type="date"
-        name="dateApplied"
-        id="dateApplied"
-        className="border-solid border-gray-300 border mb-2 py-2 px-4 w-full
-    rounded text-gray-700"
-        min={
-          //two weeks before today
-          new Date(Date.now() - 14 * 24 * 60 * 60 * 1000)
-            .toISOString()
-            .split("T")[0]
-        }
-        max={
-          // one month from today
-          new Date(Date.now() + 30 * 24 * 60 * 60 * 1000)
-            .toISOString()
-            .split("T")[0]
-        }
-        value={jobData.dateApplied}
-        onChange={handleInputChange}
-      />
       <label
         htmlFor="title"
-        className="text-polo-blue-700 font-medium"
+        className="w-full flex flex-col items-start gap-2 text-black font-normal"
       >
         Job Title:
+        <input
+          type="text"
+          name="title"
+          id="title"
+          placeholder="Job Title"
+          className="border-solid border-primary-600 border mb-2 py-2 px-5 w-full
+    rounded-lg text-gray-700"
+          value={jobData.title}
+          onChange={handleInputChange}
+        />
       </label>
-      <input
-        type="text"
-        name="title"
-        id="title"
-        placeholder="Job Title"
-        className="border-solid border-gray-300 border mb-2 py-2 px-4 w-full rounded
-  text-gray-700"
-        value={jobData.title}
-        onChange={handleInputChange}
-      />
-
       <label
         htmlFor="company"
-        className="text-polo-blue-700 font-medium"
+        className="w-full flex flex-col items-start gap-2 text-black font-normal"
       >
         Company:
+        <input
+          type="text"
+          name="companyName"
+          id="company"
+          className="border-solid border-primary-600 border mb-2 py-2 px-5 w-full
+    rounded-lg text-gray-700"
+          placeholder="Company"
+          value={jobData.companyName}
+          onChange={handleInputChange}
+        />
       </label>
-      <input
-        type="text"
-        name="companyName"
-        id="company"
-        className="border-solid border-gray-300 border mb-2 py-2 px-4 w-full
-    rounded text-gray-700 "
-        placeholder="Company"
-        value={jobData.companyName}
-        onChange={handleInputChange}
-      />
-
       <label
         htmlFor="category"
-        className="text-polo-blue-700 font-medium "
+        className="w-full flex flex-col items-start gap-2 text-black font-normal"
       >
         Status:
+        <select
+          role="combobox"
+          name="status"
+          id="category"
+          className="border-solid border-gray-300 border py-2 px-4 w-full
+    rounded-lg text-gray-700"
+          value={jobData.status}
+          onChange={handleInputChange}
+        >
+          {categories.map((cat) => (
+            <option key={cat.value} role="option" value={cat.value}>
+              {cat.name}
+            </option>
+          ))}
+        </select>
       </label>
-      <select
-        role="combobox"
-        name="status"
-        id="category"
-        className="border-solid border-gray-300 border py-2 px-4 w-full
-    rounded text-gray-700"
-        value={jobData.status}
-        onChange={handleInputChange}
-      >
-        {categories.map((cat) => (
-          <option key={cat.value} role="option" value={cat.value}>
-            {cat.name}
-          </option>
-        ))}
-      </select>
-
       <label
         htmlFor="additionalDetails"
-        className="text-polo-blue-700 font-medium block mt-4"
+        className="flex flex-col items-start gap-2 w-full "
       >
-        Additional Notes:
+        <span className=" text-black text-base font-normal font-inter">
+          Additional Notes:
+        </span>
+        <div className="border border-primary-500 rounded-lg w-full min-h-full">
+          <TextEdit
+            content={jobData.additionalDetails}
+            onChange={handleTextEditChange}
+            id="additionalDetails"
+          />
+        </div>
       </label>
-      <TextEdit
-        content={jobData.additionalDetails}
-        onChange={handleTextEditChange}
-        id="additionalDetails"
-      />
-
       <button
         disabled={isLoading}
-        className="mt-4 w-full bg-polo-blue-800 hover:bg-polo-blue-700 text-polo-blue-50 border shadow py-3 px-6 font-semibold text-md rounded"
+        className="mt-10 w-full h-12 bg-primary-600 hover:bg-polo-blue-700 text-white border shadow py-3 px-6 font-normal font-inter text-base rounded-lg border-solid border-primary-500 "
       >
         Add Job
       </button>

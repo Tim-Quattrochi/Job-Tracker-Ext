@@ -1,9 +1,8 @@
 import { useEffect } from "react";
 import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
-import Highlight from "@tiptap/extension-highlight";
-import { Color } from "@tiptap/extension-color";
 import TextStyle from "@tiptap/extension-text-style";
+import Link from "@tiptap/extension-link";
 
 const extensions = [
   StarterKit.configure({
@@ -16,12 +15,11 @@ const extensions = [
       keepAttributes: false,
     },
   }),
-  Highlight,
 
-  TextStyle,
-  Color.configure({
-    types: ["textStyle"],
+  Link.configure({
+    openOnClick: true,
   }),
+  TextStyle,
 ];
 
 const RenderRichText = ({ content }) => {
@@ -42,7 +40,7 @@ const RenderRichText = ({ content }) => {
     if (parsedContent) {
       editor?.commands.setContent(parsedContent);
     }
-  }, [parsedContent, editor]);
+  }, [editor]);
 
   return (
     <EditorContent

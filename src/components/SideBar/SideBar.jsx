@@ -40,6 +40,7 @@ const SideBar = ({ content, showSidebar, setShowSidebars }) => {
                         <div className="text-lg font-inter text-primary-700 mb-2 border-b-[1px] border-b-primary-400 ">
                           Notes:
                         </div>
+
                         <RenderRichText content={value} />
                       </div>
                     ) : (
