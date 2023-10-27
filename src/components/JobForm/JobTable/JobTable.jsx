@@ -67,7 +67,7 @@ const JobTable = ({ data, results, deleteJob, deleteError }) => {
         <ShowError errorMsg="Something went wrong while saving." />
       )}
 
-      <table className="w-full border border-collapse">
+      <table className="w-full">
         <TableHeader />
         <tbody>
           {results?.length === 0 ? (

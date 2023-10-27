@@ -1,6 +1,8 @@
 import { formatDate } from "../../../utilities/formatDate";
 import SideBar from "../../SideBar/SideBar";
 import Modal from "../../Modal/Modal";
+import editIcon from "../../../assets/edit.svg";
+import trashIcon from "../../../assets/trash-2.svg";
 const TableRow = ({
   job,
   editedJob,
@@ -23,7 +25,7 @@ const TableRow = ({
 }) => {
   return (
     <tr key={job.id || job.item.id}>
-      <td className="p-2">
+      <td className="flex flex-col flex-wrap items-start justify-center content-center px-4 py-5">
         {formatDate(getJobData(job).dateApplied)}
       </td>
       <td className="p-2">
@@ -38,7 +40,7 @@ const TableRow = ({
         ) : (
           <div>
             <span
-              className="text-blue-500 cursor-pointer hover:text-blue-800"
+              className="text-primary-700  cursor-pointer hover:primary-1000 flex flex-col flex-wrap gap-2 items-start justify-center content-center px-4 py-3 font-inter"
               onClick={() => toggleSidebar(job.id)}
             >
               {getJobData(job).title}
@@ -68,7 +70,9 @@ const TableRow = ({
             }
           />
         ) : (
-          getJobData(job).companyName
+          <span className="text-black flex flex-col flex-wrap items-start justify-center content-center px-4 py-3">
+            {getJobData(job).companyName}
+          </span>
         )}
       </td>
       <td className="p-2">
@@ -86,10 +90,12 @@ const TableRow = ({
             <option value="Accepted">Accepted</option>
           </select>
         ) : (
-          getJobData(job).status
+          <span className="text-black text-base font-normal flex flex-col flex-wrap items-start justify-center content-center px-4 py-3">
+            {getJobData(job).status}
+          </span>
         )}
       </td>
-      <td className="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+      <td className="p-2  text-left block md:table-cell">
         {isEditing(job) ? (
           <>
             <button
@@ -110,21 +116,36 @@ const TableRow = ({
             <span className="inline-block w-1/3 md:hidden font-bold">
               Actions
             </span>
-            <button
-              className="bg-blue-500 hover.bg-blue-700 text-white font-bold py-1 px-2 border border-blue-500 rounded mr-2"
-              onClick={() => handleEditClick(job)}
-            >
-              Edit
-            </button>
-            <button
-              className="bg-red-500 hover.bg-red-700 text-white font-bold py-1 px-2 border border-red-500 rounded"
-              onClick={() => {
-                setJobToDelete(job.id);
-                setShowModal(true);
-              }}
-            >
-              Delete
-            </button>
+            <div className="flex justify-end">
+              <div
+                className="flex items-center py-2 px-4 gap-2"
+                onClick={() => handleEditClick(job)}
+              >
+                <img
+                  src={editIcon}
+                  className=" text-white font-bold py-1 px-2 cursor-pointer"
+                />
+                <span className="text-primary-600 cursor-pointer">
+                  Edit
+                </span>
+              </div>
+              <div
+                className="flex items-center py-2 px-4 gap-2"
+                onClick={() => {
+                  setJobToDelete(job.id);
+                  setShowModal(true);
+                }}
+              >
+                <img
+                  src={trashIcon}
+                  className=" text-white font-bold py-1 px-2 cursor-pointer "
+                />
+                <span className="text-red cursor-pointer">
+                  Delete
+                </span>
+              </div>
+            </div>
+
             {showModal && (
               <Modal
                 isOpen={showModal}

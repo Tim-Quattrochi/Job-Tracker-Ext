@@ -17,6 +17,7 @@ import {
 import Modal from "../Modal/Modal";
 import JobForm from "../JobForm/JobForm";
 import SelectInput from "../Select/SelectInput";
+import btnCircle from "../../assets/plus-circle.svg";
 
 const options = {
   keys: ["companyName", "status"],
@@ -66,7 +67,7 @@ function JobList() {
 
   if (isLoading) {
     return (
-      <div className="flex flex-col justify-center h-auto ">
+      <div className="flex flex-col justify-center h-auto px-8 ">
         <div className=" text-xl font-bold py-6 flex mx-auto">
           Loading...
         </div>
@@ -83,54 +84,26 @@ function JobList() {
       <Modal isOpen={showModal} onClose={() => setShowModal(false)}>
         <JobForm setShowModal={setShowModal} />
       </Modal>
-      <div className="flex  flex-wrap justify-start p-4">
-        <Search
-          search={searchWord}
-          setSearchWord={(value) => dispatch(setSearchWord(value))}
-        />
-        <SelectInput
-          handleSelectChange={handleSelectChange}
-          selectedStatus={selectedStatus}
-        />
-        <button
-          className="bg-polo-blue-500 hover:bg-gray-400 text-polo-blue-50 font-medium py-2 h-10 px-2 rounded inline-flex items-center ml-auto"
-          onClick={() => setShowModal(true)}
-        >
-          <svg
-            width="20"
-            height="40"
-            viewBox="0 0 50 50"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            className=" w-4 h-4 mr-2"
+      <div className="flex  flex-wrap justify-center items-center mx-auto self-stretch gap-6 p-4 max-w-7xl">
+        <div className="flex justify-between items-center self-stretch w-full">
+          <Search
+            search={searchWord}
+            setSearchWord={(value) => dispatch(setSearchWord(value))}
+          />
+          <SelectInput
+            handleSelectChange={handleSelectChange}
+            selectedStatus={selectedStatus}
+          />
+          <button
+            className="bg-primary-600 h-10 w-auto hover:bg-gray-400  py-3  px-5 rounded-lg inline-flex items-center ml-auto"
+            onClick={() => setShowModal(true)}
           >
-            <circle
-              cx="25"
-              cy="25"
-              r="23"
-              stroke="#797373"
-              strokeWidth="4"
-            />
-            <rect
-              x="12"
-              y="23"
-              width="26"
-              height="4"
-              rx="1"
-              fill="#23581b"
-            />
-            <rect
-              x="27"
-              y="12"
-              width="26"
-              height="4"
-              rx="1"
-              transform="rotate(90 27 12)"
-              fill="#23581b"
-            />
-          </svg>
-          Add new job
-        </button>
+            <img src={btnCircle} className="mr-2 w-6 h-6" />
+            <span className="text-white text-base  font-inter not-italic">
+              Add New Job
+            </span>
+          </button>
+        </div>
         <JobTable
           data={data}
           results={results}
