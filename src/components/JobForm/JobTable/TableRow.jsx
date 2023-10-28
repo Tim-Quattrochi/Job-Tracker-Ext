@@ -95,21 +95,56 @@ const TableRow = ({
           </span>
         )}
       </td>
-      <td className="p-2  text-left block md:table-cell">
+      <td className="flex justify-end gap-2 content-end ">
         {isEditing(job) ? (
           <>
-            <button
-              className="bg-green-500 hover.bg-green-700 text-white font-bold py-1 px-2 border border-green-500 rounded mr-2"
-              onClick={handleSaveClick}
-            >
-              Save
-            </button>
-            <button
-              className="bg-gray-500 hover.bg-gray-700 text-white font-bold py-1 px-2 border border-gray-500 rounded"
-              onClick={handleCancelClick}
-            >
-              Cancel
-            </button>
+            <div className="flex justify-end">
+              <div
+                className="flex items-center py-2 px-4 "
+                onClick={handleSaveClick}
+              >
+                <svg
+                  className="  text-gree-500 text-green-600 font-bold py-1 px-2rounded mr-2 h-8 cursor-pointer"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M4.5 12.75l6 6 9-13.5"
+                  />
+                </svg>
+                <span className="text-green-500 text-base cursor-pointer">
+                  Save
+                </span>
+              </div>
+
+              <div
+                className="flex items-center py-2 px-4 "
+                onClick={handleCancelClick}
+              >
+                <svg
+                  className=" hover-bg-gray-700 text-red font-bold py-1 px-2  rounded h-8 cursor-pointer"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                  />
+                </svg>
+                <span className="text-red cursor-pointer">
+                  Cancel
+                </span>
+              </div>
+            </div>
           </>
         ) : (
           <>
@@ -123,7 +158,7 @@ const TableRow = ({
               >
                 <img
                   src={editIcon}
-                  className=" text-white font-bold py-1 px-2 cursor-pointer"
+                  className="font-bold py-1 px-2 cursor-pointer"
                 />
                 <span className="text-primary-600 cursor-pointer">
                   Edit
@@ -157,13 +192,13 @@ const TableRow = ({
                   </h2>
                   <div className="flex justify-center mt-4">
                     <button
-                      className="bg-red-500 hover.bg-red-700 text-white font-bold py-1 px-2 border border-red-500 rounded mr-2"
+                      className="bg-red-500 hover-bg-red-700 text-white font-bold py-1 px-2 border border-red-500 rounded mr-2"
                       onClick={() => setShowModal(false)}
                     >
                       Cancel
                     </button>
                     <button
-                      className="bg-green-500 hover.bg-green-700 text-white font-bold py-1 px-2 border border-green-500 rounded"
+                      className="bg-green-500 hover-bg-green-700 text-white font-bold py-1 px-2 border border-green-500 rounded"
                       onClick={() => {
                         handleDeleteJob(jobToDelete);
                       }}
