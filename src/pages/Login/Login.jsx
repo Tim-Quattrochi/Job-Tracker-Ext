@@ -4,10 +4,8 @@ import Label from "../../components/label/Label";
 import { Link, useNavigate } from "react-router-dom";
 import { useSignInMutation } from "../../services/auth";
 import { useDispatch } from "react-redux";
-import {
-  setCredentials,
-  setUser,
-} from "../../features/auth/authSlice";
+import { setCredentials } from "../../features/auth/authSlice";
+import { APP_NAME } from "../../config/constants";
 
 const initialState = {
   email: "",
@@ -30,11 +28,9 @@ const Login = () => {
 
     try {
       const { user } = await signIn(formData).unwrap();
-      //store user in local storage
 
-      // dispatch(setUser(user));
       dispatch(setCredentials(user));
-      localStorage.setItem("user", JSON.stringify(user));
+      localStorage.setItem(APP_NAME, JSON.stringify(user));
 
       if (user) {
         navigate("/");

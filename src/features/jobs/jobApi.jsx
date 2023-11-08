@@ -3,6 +3,7 @@ import {
   fetchBaseQuery,
 } from "@reduxjs/toolkit/query/react";
 import { setCredentials } from "../auth/authSlice";
+import { APP_NAME } from "../../config/constants";
 
 const baseQuery = fetchBaseQuery({
   baseUrl: "http://localhost:3001/api/",
@@ -31,7 +32,7 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
 
     if (refreshResult?.data) {
       const existingUserData = JSON.parse(
-        localStorage.getItem("user")
+        localStorage.getItem(APP_NAME)
       );
 
       const updatedUser = {
@@ -39,7 +40,7 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
         accessToken: refreshResult.data.accessToken,
       };
 
-      localStorage.setItem("user", JSON.stringify(updatedUser));
+      localStorage.setItem(APP_NAME, JSON.stringify(updatedUser));
 
       //replace the accessToken in state with the new one.
       api.dispatch(setCredentials(updatedUser));
