@@ -114,4 +114,17 @@ const refresh = async (req, res, next) => {
   }
 };
 
-module.exports = { registerUser, loginUser, refresh };
+const logoutUser = async (req, res) => {
+  const userId = req.userId;
+
+  User.logout(userId, (err, user) => {
+    if (err) {
+      return res.status(401).json({ message: err.message });
+    } else {
+      User.clearCookie(res);
+      return res.status(200).json({ message: "Logged out." });
+    }
+  });
+};
+
+module.exports = { registerUser, loginUser, logoutUser, refresh };
