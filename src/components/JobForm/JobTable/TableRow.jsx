@@ -30,7 +30,7 @@ const TableRow = ({
   );
 
   return (
-    <tr key={job.id || job.item.id}>
+    <tr key={job.id}>
       <td className="flex flex-col flex-wrap items-start justify-center content-center px-4 py-5">
         {formattedDate}
       </td>
@@ -67,10 +67,10 @@ const TableRow = ({
         {isEditing(job) ? (
           <input
             type="text"
-            value={job.companyName}
+            value={editedJob.companyName}
             onChange={(e) =>
               setEditedJob({
-                ...job,
+                ...editedJob,
                 companyName: e.target.value,
               })
             }
@@ -84,7 +84,7 @@ const TableRow = ({
       <td className="p-2">
         {isEditing(job) ? (
           <select
-            value={editedJob.status || job.status}
+            value={editedJob.status}
             onChange={(e) =>
               setEditedJob({ ...editedJob, status: e.target.value })
             }
