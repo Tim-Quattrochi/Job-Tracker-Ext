@@ -56,6 +56,24 @@ class User {
     );
   }
 
+  static logout = (userId, result) => {
+    sql.query(
+      "UPDATE users SET refresh_token = NULL WHERE id = ?",
+      userId,
+      (err, res) => {
+        if (err) {
+          console.log("error: ", err);
+          return result(err, null);
+        }
+        return result(null, res);
+      }
+    );
+  };
+
+  static clearCookie(res) {
+    return res.clearCookie(APP_NAME);
+  }
+
   static async hashPassword(password) {
     try {
       const passwordHash = await bcrypt.hash(password, 10);
