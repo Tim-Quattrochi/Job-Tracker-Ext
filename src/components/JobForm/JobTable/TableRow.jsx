@@ -1,4 +1,5 @@
 import { formatDate } from "../../../utilities/formatDate";
+import { useMemo } from "react";
 import SideBar from "../../SideBar/SideBar";
 import Modal from "../../Modal/Modal";
 import editIcon from "../../../assets/edit.svg";
@@ -23,16 +24,21 @@ const TableRow = ({
   setJobToDelete,
   jobToDelete,
 }) => {
+  const formattedDate = useMemo(
+    () => formatDate(getJobData(job)?.dateApplied),
+    [job]
+  );
+
   return (
     <tr key={job.id || job.item.id}>
       <td className="flex flex-col flex-wrap items-start justify-center content-center px-4 py-5">
-        {formatDate(getJobData(job).dateApplied)}
+        {formattedDate}
       </td>
       <td className="p-2">
         {isEditing(job) ? (
           <input
             type="text"
-            value={editedJob.title || job.title}
+            value={editedJob.title}
             onChange={(e) =>
               setEditedJob({ ...editedJob, title: e.target.value })
             }
@@ -61,10 +67,10 @@ const TableRow = ({
         {isEditing(job) ? (
           <input
             type="text"
-            value={editedJob.companyName || job.companyName}
+            value={job.companyName}
             onChange={(e) =>
               setEditedJob({
-                ...editedJob,
+                ...job,
                 companyName: e.target.value,
               })
             }
