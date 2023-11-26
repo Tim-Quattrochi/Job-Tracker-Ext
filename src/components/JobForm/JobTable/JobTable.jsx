@@ -16,7 +16,7 @@ const JobTable = ({ data, results, deleteJob, deleteError }) => {
   const [editJob, { error }] = useEditJobMutation();
 
   const handleEditClick = (job) => {
-    setEditingJobId(job.id || job.item.id);
+    setEditingJobId(job.id);
     setEditedJob(job);
   };
 
