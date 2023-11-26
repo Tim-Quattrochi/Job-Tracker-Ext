@@ -65,7 +65,9 @@ const updateJob = (req, res) => {
   }
 
   JobDetails.updateById(id, new JobDetails(req.body), (err, data) => {
-    if (err) {
+    if (data instanceof Error) {
+      return res.status(500).json({ message: data.message });
+    } else if (err) {
       if (err.kind === "not_found") {
         res
           .status(404)
