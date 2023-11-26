@@ -17,11 +17,19 @@ const JobTable = ({ data, results, deleteJob, deleteError }) => {
 
   const handleEditClick = (job) => {
     setEditingJobId(job.id);
-    setEditedJob(job);
+    setEditedJob(getJobData(job));
   };
 
   const handleSaveClick = () => {
-    editJob(editedJob);
+    console.log(editedJob);
+    editJob(editedJob)
+      .unwrap()
+      .then((result) => {
+        console.log("Edit Job Successful", result);
+      })
+      .catch((error) => {
+        console.error("Edit Job Error", error);
+      });
 
     setEditedJob({});
     setEditingJobId(null);
@@ -82,7 +90,7 @@ const JobTable = ({ data, results, deleteJob, deleteError }) => {
               <TableRow
                 key={job.id || job.item.id}
                 job={job}
-                editedJob={editJob}
+                editedJob={editedJob}
                 isEditing={isEditing}
                 toggleSidebar={toggleSidebar}
                 isSidebarOpen={isSidebarOpen}
