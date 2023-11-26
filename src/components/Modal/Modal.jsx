@@ -1,9 +1,9 @@
 const Modal = ({ isOpen, onClose, children }) => {
   const overlayClasses = isOpen
-    ? "fixed inset-0 bg-white z-50"
+    ? "fixed inset-0  z-50 bg-primary-400 opacity-50"
     : "hidden";
   const modalClasses = isOpen
-    ? "fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-md shadow-lg z-50"
+    ? "fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-lg shadow-md   z-50"
     : "hidden";
 
   return (
@@ -15,18 +15,26 @@ const Modal = ({ isOpen, onClose, children }) => {
           onClick={onClose}
         >
           <svg
-            className="w-6 h-6 text-black hover:text-gray-700"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
           >
             <path
+              d="M18 6L6 18"
+              stroke="black"
+              strokeWidth="2"
               strokeLinecap="round"
               strokeLinejoin="round"
+            />
+            <path
+              d="M6 6L18 18"
+              stroke="black"
               strokeWidth="2"
-              d="M6 18L18 6M6 6l12 12"
-            ></path>
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
           </svg>
         </button>
         {children}
