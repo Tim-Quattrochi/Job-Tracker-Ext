@@ -3,20 +3,32 @@ import { useEditJobMutation } from "../../../features/jobs/jobApi";
 import ShowError from "../../ShowError/ShowError";
 import TableHeader from "./TableHeader";
 import TableRow from "./TableRow";
+import {
+  isInEdit,
+  updateJob,
+  selectJobInEdit,
+  removeJob,
+} from "../../../features/jobs/jobsSlice";
+import { useSelector } from "react-redux";
+
+import { useDispatch } from "react-redux";
 
 const JobTable = ({ data, results, deleteJob, deleteError }) => {
-  const [editingJobId, setEditingJobId] = useState(null);
   const [editedJob, setEditedJob] = useState({});
   const [showModal, setShowModal] = useState(false);
   const [showSidebars, setShowSidebars] = useState({});
   const [showSideBar, setShowSideBar] = useState(false);
 
   const [jobToDelete, setJobToDelete] = useState(null);
+  const dispatch = useDispatch();
 
   const [editJob, { error }] = useEditJobMutation();
 
+  const jobInEdit = useSelector((state) => selectJobInEdit(state));
+
   const handleEditClick = (job) => {
-    setEditingJobId(job.id);
+    dispatch(isInEdit({ id: job.id, inEdit: true }));
+
     setEditedJob(getJobData(job));
   };
 
@@ -26,24 +38,32 @@ const JobTable = ({ data, results, deleteJob, deleteError }) => {
       .unwrap()
       .then((result) => {
         console.log("Edit Job Successful", result);
+        dispatch(updateJob(result));
+        dispatch(isInEdit({ id: editedJob.id, inEdit: false }));
       })
       .catch((error) => {
         console.error("Edit Job Error", error);
       });
 
     setEditedJob({});
-    setEditingJobId(null);
   };
 
   const handleCancelClick = () => {
+    dispatch(isInEdit({ id: editedJob.id, inEdit: false }));
     setEditedJob({});
-    setEditingJobId(null);
   };
 
   const handleDeleteJob = (id) => {
-    deleteJob(id);
-    setShowModal(false);
-    setEditingJobId(null);
+    deleteJob(id)
+      .unwrap()
+      .then((result) => {
+        console.log("Delete Job Successful", result);
+
+        setShowModal(false);
+      })
+      .catch((error) => {
+        console.error("Delete Job Error", error);
+      });
   };
 
   const toggleSidebar = (jobId) => {
@@ -58,7 +78,8 @@ const JobTable = ({ data, results, deleteJob, deleteError }) => {
   };
 
   const isEditing = (job) => {
-    return job?.id === editingJobId || job.item?.id === editingJobId;
+    if (jobInEdit === undefined) return false;
+    return job.id === jobInEdit.id;
   };
 
   const getJobData = (job) => {
