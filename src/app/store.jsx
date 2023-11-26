@@ -3,7 +3,7 @@ import { authApi } from "../services/auth";
 import { jobApi } from "../features/jobs/jobApi";
 import searchReducer from "../features/jobs/searchSlice";
 import authReducer from "../features/auth/authSlice";
-import { jobListingApi } from "../features/jobListings/jobListingSlice";
+import jobsReducer from "../features/jobs/jobsSlice";
 
 const store = configureStore({
   reducer: {
@@ -11,14 +11,12 @@ const store = configureStore({
     [jobApi.reducerPath]: jobApi.reducer,
     auth: authReducer,
     search: searchReducer,
-    jobs: jobApi.reducer,
-    listings: jobListingApi.reducer,
+    jobs: jobsReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(
       authApi.middleware,
-      jobApi.middleware,
-      jobListingApi.middleware
+      jobApi.middleware
     ),
 });
 
