@@ -14,6 +14,7 @@ import {
   useDeleteJobMutation,
   useGetJobByUserIdQuery,
 } from "../../features/jobs/jobApi";
+import { setJobs } from "../../features/jobs/jobsSlice";
 import Modal from "../Modal/Modal";
 import JobForm from "../JobForm/JobForm";
 import SelectInput from "../Select/SelectInput";
@@ -60,8 +61,10 @@ function JobList() {
       }
 
       dispatch(setResults(filtered));
+      dispatch(setJobs(filtered));
     } else {
       dispatch(setResults(data));
+      dispatch(setJobs(data));
     }
   }, [data, searchWord, selectedStatus, dispatch]);
 
