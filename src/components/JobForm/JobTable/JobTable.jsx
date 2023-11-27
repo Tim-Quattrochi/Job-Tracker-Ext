@@ -7,7 +7,6 @@ import {
   isInEdit,
   updateJob,
   selectJobInEdit,
-  removeJob,
 } from "../../../features/jobs/jobsSlice";
 import { useSelector } from "react-redux";
 
@@ -32,9 +31,14 @@ const JobTable = ({ data, results, deleteJob, deleteError }) => {
     setEditedJob(getJobData(job));
   };
 
-  const handleSaveClick = () => {
-    console.log(editedJob);
-    editJob(editedJob)
+  const handleSaveClick = (content = null) => {
+    //If the edit is not coming from the sidebar, then tiptap seems to add a nativeEvent object to the content. Which I don't want. Because it will make it truthy and then my or statement will include it. If the edit IS coming from the sidebar, then the additionalDetails aka notes are being updated, and I do want that.
+    if (content?.nativeEvent) {
+      content = null;
+    }
+
+    //the purpose of this or statement is to check if the content is coming from the sidebar or not. If it is, then the content will be the additionalDetails from the sidebar. If it is not, then the content will be null, and the editedJob will be the job that is being edited.
+    editJob(content || editedJob) //if there is content, it means the additionalDetails from the text editor is being updated.
       .unwrap()
       .then((result) => {
         console.log("Edit Job Successful", result);
