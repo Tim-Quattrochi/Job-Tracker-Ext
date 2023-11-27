@@ -58,6 +58,12 @@ const TableRow = ({
                 setShowSidebar={setShowSideBar}
                 showSidebars={showSidebars}
                 setShowSidebars={setShowSidebars}
+                isEditing={isEditing}
+                job={job}
+                handleSaveClick={handleSaveClick}
+                setEditedJob={setEditedJob}
+                getJobData={getJobData}
+                editedJob={editedJob}
               />
             )}
           </div>
