@@ -2,7 +2,17 @@ import { formatDate } from "../../utilities/formatDate";
 import RenderRichText from "../TextEditor/RenderRichText";
 import closeIcon from "../../assets/x.svg";
 
-const SideBar = ({ content, showSidebar, setShowSidebars }) => {
+const SideBar = ({
+  content,
+  showSidebar,
+  setShowSidebars,
+  job,
+  handleSaveClick,
+  setEditedJob,
+  getJobData,
+  editedJob,
+  isSidebarOpen,
+}) => {
   const keyOrder = [
     "title",
     "dateApplied",
@@ -41,7 +51,15 @@ const SideBar = ({ content, showSidebar, setShowSidebars }) => {
                           Notes:
                         </div>
 
-                        <RenderRichText content={value} />
+                        <RenderRichText
+                          content={value}
+                          handleSaveClick={handleSaveClick}
+                          setEditedJob={setEditedJob}
+                          getJobData={getJobData}
+                          job={job}
+                          editedJob={editedJob}
+                          isSidebarOpen={isSidebarOpen}
+                        />
                       </div>
                     ) : (
                       <div className="flex gap-6 py-2 items-start self-stretch ">
