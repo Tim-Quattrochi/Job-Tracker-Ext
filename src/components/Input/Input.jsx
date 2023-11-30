@@ -1,5 +1,7 @@
 const Input = ({
   type,
+  id,
+  name,
   placeHolder,
   value,
   onChange,
@@ -10,8 +12,8 @@ const Input = ({
     <div>
       <input
         type={type}
-        name={type}
-        id={type}
+        name={name}
+        id={id}
         value={value}
         onChange={onChange}
         className={className}
