@@ -1,4 +1,11 @@
-const Input = ({ type, placeHolder, value, onChange, className }) => {
+const Input = ({
+  type,
+  placeHolder,
+  value,
+  onChange,
+  className,
+  autoComplete,
+}) => {
   return (
     <div>
       <input
@@ -9,6 +16,7 @@ const Input = ({ type, placeHolder, value, onChange, className }) => {
         onChange={onChange}
         className={className}
         placeholder={placeHolder}
+        autoComplete={autoComplete}
       />
     </div>
   );
