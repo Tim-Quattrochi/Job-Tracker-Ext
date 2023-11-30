@@ -6,6 +6,9 @@ import { useSignInMutation } from "../../services/auth";
 import { useDispatch } from "react-redux";
 import { setCredentials } from "../../features/auth/authSlice";
 import { APP_NAME } from "../../config/constants";
+import validateForm from "../../utilities/validateForm";
+import { toast } from "react-toastify";
+import Spinner from "../../components/Spinner/Spinner";
 
 const initialState = {
   email: "",
@@ -26,6 +29,12 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const errors = validateForm(formData, "login");
+
+    if (Object.keys(errors).length > 0) {
+      return toast.error(Object.values(errors).join("\n"));
+    }
+
     try {
       const { user } = await signIn(formData).unwrap();
 
@@ -39,6 +48,9 @@ const Login = () => {
       console.log(error);
     }
   };
+
+  if (isLoading) return <Spinner />;
+
   return (
     <div className="min-h-full h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
       <form

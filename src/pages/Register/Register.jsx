@@ -33,7 +33,7 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const errors = validateForm(formData);
+    const errors = validateForm(formData, "register");
 
     if (Object.keys(errors).length > 0) {
       return toast.error(Object.values(errors).join("\n"));
