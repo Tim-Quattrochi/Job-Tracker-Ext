@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "../../hooks/useAuth";
 import JobTable from "../JobForm/JobTable/JobTable";
-import ShowError from "../ShowError/ShowError";
 import Fuse from "fuse.js";
 import Search from "../Search/Search";
 import {
@@ -19,6 +18,7 @@ import Modal from "../Modal/Modal";
 import JobForm from "../JobForm/JobForm";
 import SelectInput from "../Select/SelectInput";
 import btnCircle from "../../assets/plus-circle.svg";
+import { toast } from "react-toastify";
 
 const options = {
   keys: ["companyName", "status"],
@@ -42,6 +42,9 @@ function JobList() {
   );
 
   const handleSelectChange = (e) => {
+    if (!data) {
+      return toast.error("No jobs to filter");
+    }
     dispatch(setSelectedStatus(e.target.value));
   };
 
@@ -80,9 +83,7 @@ function JobList() {
 
   return (
     <>
-      {deleteError && (
-        <ShowError errorMsg="Error while deleting job." />
-      )}
+      {deleteError && toast.error("error deleting job")}
 
       <Modal isOpen={showModal} onClose={() => setShowModal(false)}>
         <JobForm setShowModal={setShowModal} />
@@ -90,6 +91,7 @@ function JobList() {
       <div className="flex  flex-wrap justify-center items-center mx-auto self-stretch gap-6 p-4 max-w-7xl">
         <div className="flex justify-between items-center self-stretch w-full">
           <Search
+            data={data}
             search={searchWord}
             setSearchWord={(value) => dispatch(setSearchWord(value))}
           />
