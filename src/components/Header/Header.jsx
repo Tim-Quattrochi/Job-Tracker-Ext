@@ -1,6 +1,6 @@
 import logo from "../../assets/PushHire.svg";
 import icon from "../../assets/Icon.svg";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { clearUser } from "../../features/auth/authSlice";
 import { useLogoutMutation } from "../../services/auth";
 import { useSelector, useDispatch } from "react-redux";
@@ -12,6 +12,9 @@ const Header = () => {
   const user = useSelector((state) => state.auth.user);
 
   const dispatch = useDispatch();
+  const { pathname } = useLocation();
+
+  if (pathname === "/") return "";
 
   return (
     <header className="w-full flex flex-col py-2 h-auto  border-primary-200 border-b  ">
