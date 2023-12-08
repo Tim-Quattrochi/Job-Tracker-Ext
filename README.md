@@ -1,7 +1,7 @@
 # PushHire Job Tracker
-![tracker](tracker.png)
-![side open](sideOpen.png)
-![side open](formOpen.png)
+![tracker](./readMeAssets/tracker.png)
+![side open](./readMeAssets/sideOpen.png)
+![side open](./readMeAssets/formOpen.png)
 
 
 ## Description
