@@ -6,7 +6,7 @@ import { useRegisterMutation } from "../../services/auth";
 import { useDispatch } from "react-redux";
 import { setCredentials } from "../../features/auth/authSlice";
 import { APP_NAME } from "../../config/constants";
-import { toast } from "react-toastify";
+import { toast, Slide } from "react-toastify";
 import Spinner from "../../components/Spinner/Spinner";
 import validateForm from "../../utilities/validateForm";
 import registerSVG from "../../assets/register.svg";
@@ -37,7 +37,15 @@ const Register = () => {
     const errors = validateForm(formData, "register");
 
     if (Object.keys(errors).length > 0) {
-      return toast.error(Object.values(errors).join("\n"));
+      return toast.error(Object.values(errors).join("\n"), {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 3000, //3 seconds
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        transition: Slide,
+      });
     }
 
     try {
@@ -50,7 +58,15 @@ const Register = () => {
       }
     } catch (error) {
       console.log(error);
-      toast.error("Something went wrong");
+      toast.error("Something went wrong", {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 3000, //3 seconds
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        transition: Slide,
+      });
     }
   };
   if (isLoading) return <Spinner />;

@@ -18,7 +18,7 @@ import Modal from "../Modal/Modal";
 import JobForm from "../JobForm/JobForm";
 import SelectInput from "../Select/SelectInput";
 import btnCircle from "../../assets/plus-circle.svg";
-import { toast } from "react-toastify";
+import { toast, Slide } from "react-toastify";
 
 const options = {
   keys: ["companyName", "status"],
@@ -29,7 +29,7 @@ function JobList() {
   const [showModal, setShowModal] = useState(false);
   const { user } = useAuth();
 
-  const { data, error, isLoading } = useGetJobByUserIdQuery(user?.id);
+  const { data, isLoading } = useGetJobByUserIdQuery(user?.id);
 
   const [deleteJob, { error: deleteError }] = useDeleteJobMutation();
 
@@ -43,7 +43,15 @@ function JobList() {
 
   const handleSelectChange = (e) => {
     if (!data) {
-      return toast.error("No jobs to filter");
+      return toast.error("No jobs to filter", {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 3000, //3 seconds
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        transition: Slide,
+      });
     }
     dispatch(setSelectedStatus(e.target.value));
   };
@@ -83,7 +91,16 @@ function JobList() {
 
   return (
     <>
-      {deleteError && toast.error("error deleting job")}
+      {deleteError &&
+        toast.error("error deleting job", {
+          position: toast.POSITION.TOP_CENTER,
+          autoClose: 3000, //3 seconds
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          transition: Slide,
+        })}
 
       <Modal isOpen={showModal} onClose={() => setShowModal(false)}>
         <JobForm setShowModal={setShowModal} />
@@ -100,11 +117,11 @@ function JobList() {
             selectedStatus={selectedStatus}
           />
           <button
-            className="bg-primary-600 h-10 w-auto hover:bg-gray-400  py-3  px-5 rounded-lg inline-flex items-center ml-auto"
+            className="bg-primary-600 h-10 w-auto hover:bg-gray-400  py-3  px-5 rounded-lg inline-flex items-center ml-5 md:ml-auto"
             onClick={() => setShowModal(true)}
           >
-            <img src={btnCircle} className="mr-2 w-6 h-6" />
-            <span className="text-white text-base  font-inter not-italic">
+            <img src={btnCircle} className="mr-5 w-full md:w-6" />
+            <span className="text-white text-base hidden md:block  font-inter not-italic">
               Add New Job
             </span>
           </button>

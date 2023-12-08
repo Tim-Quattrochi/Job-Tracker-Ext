@@ -1,9 +1,9 @@
 const Modal = ({ isOpen, onClose, children }) => {
   const overlayClasses = isOpen
-    ? "fixed inset-0  z-50 bg-primary-400 opacity-50"
+    ? "fixed inset-0  z-50 bg-primary-800 opacity-50"
     : "hidden";
   const modalClasses = isOpen
-    ? "fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-lg shadow-md   z-50"
+    ? "fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-lg shadow-md bg-white z-50"
     : "hidden";
 
   return (

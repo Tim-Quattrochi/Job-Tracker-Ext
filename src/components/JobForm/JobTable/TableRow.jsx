@@ -160,9 +160,6 @@ const TableRow = ({
           </>
         ) : (
           <>
-            <span className="inline-block w-1/3 md:hidden font-bold">
-              Actions
-            </span>
             <div className="flex justify-end">
               <div
                 className="flex items-center py-2 px-4 gap-2"
@@ -199,12 +196,12 @@ const TableRow = ({
                 onClose={() => setShowModal(false)}
               >
                 <div className="text-center">
-                  <h2 className="text-xl font-bold">
+                  <h2 className="text-xl font-bold mt-10 p-4">
                     Are you sure you want to delete this job?
                   </h2>
-                  <div className="flex justify-center mt-4">
+                  <div className="flex justify-center mt-4 p-4">
                     <button
-                      className="bg-red-500 hover-bg-red-700 text-white font-bold py-1 px-2 border border-red-500 rounded mr-2"
+                      className="bg-red  text-white font-bold py-1 px-2 border border-red rounded mr-2"
                       onClick={() => setShowModal(false)}
                     >
                       Cancel

@@ -7,7 +7,7 @@ import { useDispatch } from "react-redux";
 import { setCredentials } from "../../features/auth/authSlice";
 import { APP_NAME } from "../../config/constants";
 import validateForm from "../../utilities/validateForm";
-import { toast } from "react-toastify";
+import { toast, Slide } from "react-toastify";
 import Spinner from "../../components/Spinner/Spinner";
 import loginSVG from "../../assets/login.svg";
 
@@ -33,7 +33,16 @@ const Login = () => {
     const errors = validateForm(formData, "login");
 
     if (Object.keys(errors).length > 0) {
-      return toast.error(Object.values(errors).join("\n"));
+      return toast.error(Object.values(errors).join("\n"), {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 3000, //3 seconds
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+
+        transition: Slide,
+      });
     }
 
     try {

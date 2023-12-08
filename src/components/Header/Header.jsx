@@ -28,6 +28,7 @@ const Header = () => {
       </div>
       {user && (
         <button
+          className="bg-red hover:bg-primary-300 text-white font-bold py-2 px-4 rounded-md self-end mr-10 mb-2"
           onClick={() => {
             logout()
               .unwrap()

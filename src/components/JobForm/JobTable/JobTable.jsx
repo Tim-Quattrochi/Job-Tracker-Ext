@@ -8,11 +8,12 @@ import {
   updateJob,
   selectJobInEdit,
 } from "../../../features/jobs/jobsSlice";
+import { toast, Slide } from "react-toastify";
 import { useSelector } from "react-redux";
 
 import { useDispatch } from "react-redux";
 
-const JobTable = ({ data, results, deleteJob, deleteError }) => {
+const JobTable = ({ results, deleteJob }) => {
   const [editedJob, setEditedJob] = useState({});
   const [showModal, setShowModal] = useState(false);
   const [showSidebars, setShowSidebars] = useState({});
@@ -64,6 +65,16 @@ const JobTable = ({ data, results, deleteJob, deleteError }) => {
         console.log("Delete Job Successful", result);
 
         setShowModal(false);
+        toast.success("Job deleted successfully.", {
+          position: toast.POSITION.TOP_CENTER,
+          autoClose: 3000, //3 seconds
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+
+          transition: Slide,
+        });
       })
       .catch((error) => {
         console.error("Delete Job Error", error);
